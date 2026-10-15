@@ -22,16 +22,16 @@ Assets live in `out/` after a render (see README). Add a trending sound in-app f
 | 15 | 2026-11-02 | 20:00 | Services | Film — ad | TT · IG Reel · FB Reel | `videos/Ad-film.mp4` |
 | 16 | 2026-11-03 | 12:00 | Services | Film — poster + tip | IG Feed · FB Post | `posters/Poster-Service-film.png + posters/Tip-video.png` |
 | 17 | 2026-11-04 | 20:00 | Services | Interactive & UI/UX — ads | TT · IG Reel · FB Reel | `videos/Ad-interactive.mp4, videos/Ad-uiux.mp4` |
-| 18 | 2026-11-05 | 12:00 | Team | Meet the collective | IG Feed · FB Post | `posters/Poster-Team-4x5.png` |
+| 18 | 2026-11-05 | 20:00 | Team | Meet the team (video) | TT · IG Reel · FB Reel | `videos/MeetTheTeam-9x16.mp4` |
 | 19 | 2026-11-06 | 20:00 | Team | Recruitment ad | TT · IG Reel · FB Reel | `videos/Ad-join.mp4` |
-| 20 | 2026-11-07 | 19:00 | Team | We're hiring (stories) | IG Story · FB Story | `posters/Poster-Join-9x16.png` |
-| 21 | 2026-11-08 | 20:00 | Team | Team scene (2D) | TT · IG Reel | `videos/Showreel-9x16.mp4 (trim Team scene 0:31–0:36)` |
-| 22 | 2026-11-09 | 12:00 | Team | Client tip | IG Feed · FB Post | `posters/Tip-hire.png` |
-| 23 | 2026-11-10 | 12:00 | Team | Join poster (feed) | IG Feed · FB Post · FB Groups | `posters/Poster-Join-4x5.png` |
-| 24 | 2026-11-11 | 12:00 | Team | Quote #2 | IG Feed · FB Post | `posters/Quote-2.png` |
+| 20 | 2026-11-07 | 20:00 | Team | Spotlight: Shan | TT · IG Reel · FB Reel + IG Feed | `videos/Spotlight-shan.mp4 + posters/Poster-Member-shan.png` |
+| 21 | 2026-11-08 | 19:00 | Team | We're hiring (stories) | IG Story · FB Story | `posters/Poster-Join-9x16.png` |
+| 22 | 2026-11-09 | 20:00 | Team | Spotlight: Justine | TT · IG Reel · FB Reel + IG Feed | `videos/Spotlight-justine.mp4 + posters/Poster-Member-justine.png` |
+| 23 | 2026-11-10 | 12:00 | Team | Client tip | IG Feed · FB Post | `posters/Tip-hire.png` |
+| 24 | 2026-11-11 | 20:00 | Team | Spotlight: Rei | TT · IG Reel · FB Reel + IG Feed | `videos/Spotlight-rei.mp4 + posters/Poster-Member-rei.png` |
 | 25 | 2026-11-12 | 20:00 | Proof | Work montage | TT · IG Reel · FB Reel | `videos/Showreel-9x16.mp4 (trim Work scene 0:21–0:26)` |
 | 26 | 2026-11-13 | 12:00 | Proof | Case study: brand | IG Feed · FB Post | `Gallery: Magbungkal PH / BRWTL images from the site` |
-| 27 | 2026-11-14 | 20:00 | Proof | Case study: film | FB Video · IG Reel | `Gallery: B-Desk Production showreel / Komorebi Films` |
+| 27 | 2026-11-14 | 20:00 | Proof | Spotlight: Orlando | TT · IG Reel · FB Reel + IG Feed | `videos/Spotlight-orlando.mp4 + posters/Poster-Member-orlando.png` |
 | 28 | 2026-11-15 | 12:00 | Proof | Quote #3 | IG Feed · FB Post | `posters/Quote-3.png` |
 | 29 | 2026-11-16 | 20:00 | Proof | Showreel (feed cut) | IG Feed · FB Post | `videos/Showreel-4x5.mp4` |
 | 30 | 2026-11-17 | 19:00 | Proof | Final CTA — booking | All platforms + Stories | `posters/Poster-Launch-4x5.png + posters/Poster-Launch-9x16.png` |
@@ -174,13 +174,13 @@ CTA: Explore → exenova-portfolio.vercel.app/services
 
 #Exenova #CreativeStudio #PHCreatives #GameDev #IndieGame #InteractiveDesign #WebAR
 
-**Day 18 — Meet the collective**
+**Day 18 — Meet the team (video)**
 
-Every member of Exenova gets their own page on our site. New faces every week — meet the first ones soon.
+Meet the people behind the work: Shan, Justine, Rei and Orlando. Designers, illustrators, 3D and motion artists — one collective. 👋
 
-CTA: Meet the team → exenova-portfolio.vercel.app/team
+CTA: Meet everyone → exenova-portfolio.vercel.app/team
 
-#Exenova #CreativeStudio #PHCreatives
+#Exenova #CreativeStudio #PHCreatives #MotionDesign #MotionGraphics #2DAnimation #Showreel
 
 **Day 19 — Recruitment ad**
 
@@ -190,7 +190,15 @@ CTA: Apply → exenova-portfolio.vercel.app/join
 
 #Exenova #CreativeStudio #PHCreatives #Hiring #FreelancePH #CreativeJobs #RemoteWork
 
-**Day 20 — We're hiring (stories)**
+**Day 20 — Spotlight: Shan**
+
+Spotlight: Shan Patrick Cruz — graphic designer, full-stack developer and motion designer. Founder of Exenova.
+
+CTA: Work with Shan → exenova-portfolio.vercel.app/team
+
+#Exenova #CreativeStudio #PHCreatives #Branding #GraphicDesign #LogoDesign #BrandIdentity #WebDevelopment #WebDesign #Nextjs #UIUX
+
+**Day 21 — We're hiring (stories)**
 
 Tag a creative who should join us 👇
 
@@ -198,15 +206,15 @@ CTA: Link sticker → /join
 
 #Hiring #FreelancePH #CreativeJobs #RemoteWork
 
-**Day 21 — Team scene (2D)**
+**Day 22 — Spotlight: Justine**
 
-Artists, developers & storytellers. One seat's still empty. 👀
+Spotlight: Justine Mojica (JuzziJuzzi) — illustrator, 3D artist and motion designer. From Zino NextBeats to Memphis Playground. 🎧
 
-CTA: Apply via link in bio
+CTA: Work with Justine → exenova-portfolio.vercel.app/team
 
-#Exenova #CreativeStudio #PHCreatives #Hiring #FreelancePH #CreativeJobs #RemoteWork
+#Exenova #CreativeStudio #PHCreatives #MotionDesign #MotionGraphics #2DAnimation #Showreel #3DArt #Blender
 
-**Day 22 — Client tip**
+**Day 23 — Client tip**
 
 Before you hire a creative team, do these 3 things. You'll save time and money.
 
@@ -214,21 +222,13 @@ CTA: Save this
 
 #Exenova #CreativeStudio #PHCreatives
 
-**Day 23 — Join poster (feed)**
+**Day 24 — Spotlight: Rei**
 
-Join the collective: your own page, real client work and credit on everything you touch.
+Spotlight: Reinard Gabriel Saddi (Rei) — character design, digital illustration and webtoon layout. ✍️
 
-CTA: Apply → exenova-portfolio.vercel.app/join
+CTA: Work with Rei → exenova-portfolio.vercel.app/team
 
-#Exenova #CreativeStudio #PHCreatives #Hiring #FreelancePH #CreativeJobs #RemoteWork
-
-**Day 24 — Quote #2**
-
-Balance looks with usability — always.
-
-CTA: Work with us
-
-#Exenova #CreativeStudio #PHCreatives
+#Exenova #CreativeStudio #PHCreatives #DigitalArt #CharacterDesign #Webtoon
 
 **Day 25 — Work montage**
 
@@ -246,13 +246,13 @@ CTA: Read more on our site
 
 #Exenova #CreativeStudio #PHCreatives #Branding #GraphicDesign #LogoDesign #BrandIdentity
 
-**Day 27 — Case study: film**
+**Day 27 — Spotlight: Orlando**
 
-From our film work: on-set roles, edit and colour. Full credits on the site.
+Spotlight: Orlando Chavez (Oreo) — the newest face in the collective. (Update roles and works in src/brand.ts before posting.)
 
-CTA: See the gallery → exenova-portfolio.vercel.app/gallery
+CTA: Meet Orlando → exenova-portfolio.vercel.app/team
 
-#Exenova #CreativeStudio #PHCreatives #VideoEditing #Filmmaking #MusicVideo #ColorGrading
+#Exenova #CreativeStudio #PHCreatives
 
 **Day 28 — Quote #3**
 

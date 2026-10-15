@@ -1,6 +1,6 @@
 import React from "react";
-import { AbsoluteFill, spring, useCurrentFrame, useVideoConfig } from "remotion";
-import { C, F, TEAM } from "../brand";
+import { AbsoluteFill, Img, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { C, F, MEMBERS } from "../brand";
 import { Backdrop, Eyebrow, Grain, SplitText, prog, useLayout } from "../fx";
 
 // Avatars pop into a ring, links draw between them, and an empty "you?" seat pulses.
@@ -11,12 +11,15 @@ export const TeamScene: React.FC = () => {
   const cx = portrait ? width / 2 : width * 0.68;
   const cy = portrait ? height * 0.6 : height / 2;
   const R = (portrait ? 300 : 300) * u;
-  const nodes = [...TEAM, { initials: "+YOU", role: "We're hiring" }];
+  const nodes = [
+    ...MEMBERS.map((m) => ({ photo: m.photo as string | null, label: m.nickname, color: m.color })),
+    { photo: null, label: "We're hiring", color: C.coral },
+  ];
   const pos = nodes.map((_, i) => {
     const a = (i / nodes.length) * Math.PI * 2 - Math.PI / 2;
     return { x: cx + Math.cos(a) * R, y: cy + Math.sin(a) * R };
   });
-  const av = 150 * u;
+  const av = 170 * u;
 
   return (
     <AbsoluteFill>
@@ -94,28 +97,35 @@ export const TeamScene: React.FC = () => {
               width: av,
               height: av,
               borderRadius: 36 * u,
-              background: isYou ? "transparent" : C.surface,
-              border: `${3 * u}px ${isYou ? "dashed" : "solid"} ${isYou ? C.coral : C.line}`,
+              background: isYou ? "transparent" : `linear-gradient(180deg, ${n.color}, ${n.color}66)`,
+              border: `${3 * u}px ${isYou ? "dashed" : "solid"} ${isYou ? C.coral : C.paperDeep}`,
+              overflow: "visible",
               display: "grid",
               placeItems: "center",
               scale: pop * pulse,
               opacity: Math.min(1, pop),
             }}
           >
-            <span style={{ fontFamily: F.display, fontWeight: 700, fontSize: (isYou ? 34 : 50) * u, color: isYou ? C.coral : C.accent }}>{n.initials}</span>
+            {n.photo ? (
+              <div style={{ position: "absolute", inset: 0, borderRadius: 36 * u, overflow: "hidden" }}>
+                <Img src={staticFile(n.photo)} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 20%" }} />
+              </div>
+            ) : (
+              <span style={{ fontFamily: F.display, fontWeight: 700, fontSize: 40 * u, color: C.coral }}>+YOU</span>
+            )}
             <span
               style={{
                 position: "absolute",
-                top: av + 8 * u,
+                top: av + 10 * u,
                 whiteSpace: "nowrap",
                 fontFamily: F.mono,
-                fontSize: 20 * u,
-                letterSpacing: "0.12em",
+                fontSize: 22 * u,
+                letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: isYou ? C.coral : C.muted,
+                color: isYou ? C.coral : n.color,
               }}
             >
-              {n.role}
+              {n.label}
             </span>
           </div>
         );

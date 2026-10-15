@@ -113,11 +113,80 @@ export const PROJECTS = [
 
 export const ROLES = ["Illustrators & 2D artists", "Video editors & motion designers", "Web & game developers"];
 
-export const TEAM = [
-  { initials: "SP", role: "Design & Dev" },
-  { initials: "??", role: "Illustrator" },
-  { initials: "??", role: "Editor" },
-  { initials: "??", role: "Developer" },
-  { initials: "??", role: "Motion" },
-  { initials: "??", role: "Sound" },
+
+export type Member = {
+  slug: string;
+  name: string;
+  nickname: string;
+  discipline: string;
+  roles: string[];
+  tagline: string;
+  tools: string[];
+  works: { title: string; image?: string }[];
+  photo: string;
+  color: string;
+};
+
+// From each member's page in the "Team Website Layout" Figma file.
+// Photos and work images live in public/team/.
+export const MEMBERS: Member[] = [
+  {
+    slug: "shan-patrick-cruz",
+    name: "Shan Patrick Cruz",
+    nickname: "EXENOVA",
+    discipline: "Design & Development",
+    roles: ["Graphic Designer", "Full-Stack Developer", "Motion Designer", "UI/UX Designer"],
+    tagline: "Blending design, technology and storytelling into focused, engaging digital experiences.",
+    tools: ["Figma", "Photoshop", "Illustrator", "Premiere Pro", "React", "Next.js"],
+    works: [{ title: "Magbungkal PH" }, { title: "BRWTL Rebrand" }, { title: "Exenova Labs" }, { title: "Egg Timer" }],
+    photo: "team/shan-patrick-cruz.webp",
+    color: C.accent,
+  },
+  {
+    slug: "justine-mojica",
+    name: "Justine Mojica",
+    nickname: "JUZZIJUZZI",
+    discipline: "Design · 3D · Motion",
+    roles: ["Illustrator", "3D Modelling", "Graphic Designer", "Motion Designer"],
+    tagline: "Designing digital experiences that bridge aesthetics and functionality.",
+    tools: ["Blender", "Figma", "Illustrator", "After Effects", "DaVinci Resolve"],
+    works: [
+      { title: "Zino NextBeats", image: "team/work/zino-nextbeats.webp" },
+      { title: "Memphis Playground", image: "team/work/memphis-playground.webp" },
+      { title: "Lavender Balm", image: "team/work/lavender-balm.webp" },
+      { title: "BeeFluffy", image: "team/work/beefluffy.webp" },
+    ],
+    photo: "team/justine-mojica.webp",
+    color: C.coral,
+  },
+  {
+    slug: "reinard-gabriel-saddi",
+    name: "Reinard Gabriel Saddi",
+    nickname: "REI",
+    discipline: "Illustration",
+    roles: ["Character Design", "Digital Illustration", "Webtoon Layout", "Scene Composition"],
+    tagline: "Creative digital artist specialising in concept illustration and visual storytelling.",
+    tools: ["Photoshop", "Ibis Paint X"],
+    works: [
+      { title: "Piece of Mind", image: "team/work/piece-of-mind.webp" },
+      { title: "Princess Novaria", image: "team/work/princess-novaria.webp" },
+      { title: "Emivienne", image: "team/work/emivienne.webp" },
+      { title: "Character Illustration", image: "team/work/character-illustration.webp" },
+    ],
+    photo: "team/reinard-gabriel-saddi.webp",
+    color: C.amber,
+  },
+  {
+    // Orlando's Figma page isn't finished yet — fill in roles, tagline and works here.
+    slug: "orlando-chavez",
+    name: "Orlando Chavez",
+    nickname: "OREO",
+    discipline: "Creative",
+    roles: ["Multimedia Artist"],
+    tagline: "New to the collective — full profile coming soon.",
+    tools: [],
+    works: [],
+    photo: "team/orlando-chavez.webp",
+    color: C.moss,
+  },
 ];

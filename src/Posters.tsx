@@ -1,6 +1,6 @@
 import React from "react";
-import { AbsoluteFill } from "remotion";
-import { C, F, HANDLE, ROLES, SERVICES, SITE, type ServiceKey } from "./brand";
+import { AbsoluteFill, Img, staticFile } from "remotion";
+import { C, F, HANDLE, MEMBERS, ROLES, SERVICES, SITE, type ServiceKey } from "./brand";
 import { ServiceGlyph } from "./glyphs";
 import { Backdrop, Grain, useLayout } from "./fx";
 
@@ -134,33 +134,49 @@ export const JoinPoster: React.FC = () => {
 
 export const TeamPoster: React.FC = () => {
   const { u } = useLayout();
-  const seats = ["SP", "?", "?", "?", "?", "?"];
   return (
     <Frame tint={C.violet} footer="/team">
       <Label>The collective</Label>
-      <Big size={140}>Meet the people behind the work.</Big>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 22 * u, marginTop: 10 * u }}>
-        {seats.map((s, i) => (
-          <div
-            key={i}
-            style={{
-              aspectRatio: "1",
-              borderRadius: 34 * u,
-              border: `${3 * u}px ${s === "?" ? "dashed" : "solid"} ${s === "?" ? C.line : C.accent}`,
-              background: s === "?" ? "transparent" : C.surface,
-              display: "grid",
-              placeItems: "center",
-              fontFamily: F.display,
-              fontWeight: 700,
-              fontSize: 76 * u,
-              color: s === "?" ? C.muted : C.accent,
-            }}
-          >
-            {s}
+      <Big size={130}>Meet the people behind the work.</Big>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 22 * u, marginTop: 6 * u }}>
+        {MEMBERS.map((m) => (
+          <div key={m.slug} style={{ position: "relative", borderRadius: 30 * u, overflow: "hidden", background: `linear-gradient(180deg, ${m.color}, ${m.color}55)`, aspectRatio: "1.25" }}>
+            <Img src={staticFile(m.photo)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 18%" }} />
+            <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: `${40 * u}px ${20 * u}px ${16 * u}px`, background: `linear-gradient(0deg, ${C.paperDeep}f0, transparent)` }}>
+              <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 34 * u, color: C.ink }}>{m.name}</div>
+              <div style={{ fontFamily: F.mono, fontSize: 18 * u, letterSpacing: "0.14em", color: m.color, textTransform: "uppercase" }}>{m.roles[0]}</div>
+            </div>
           </div>
         ))}
       </div>
-      <div style={{ fontFamily: F.body, fontSize: 36 * u, color: C.muted }}>New faces every week. Could the next one be you?</div>
+    </Frame>
+  );
+};
+
+export const MemberPoster: React.FC<{ slug: string }> = ({ slug }) => {
+  const { u } = useLayout();
+  const m = MEMBERS.find((x) => x.slug === slug) ?? MEMBERS[0];
+  return (
+    <Frame tint={m.color} footer="/team">
+      <div style={{ position: "absolute", left: 0, right: 0, top: 120 * u, fontFamily: F.display, fontWeight: 700, fontSize: 300 * u, lineHeight: 1, letterSpacing: "-0.05em", color: "transparent", WebkitTextStroke: `${3 * u}px ${m.color}`, whiteSpace: "nowrap", textAlign: "center", opacity: 0.8 }}>
+        {m.nickname}
+      </div>
+      <div style={{ position: "absolute", right: 30 * u, bottom: 110 * u, width: 640 * u, height: 860 * u }}>
+        <div style={{ position: "absolute", left: "8%", right: "8%", bottom: 0, height: "78%", borderRadius: `${300 * u}px ${300 * u}px ${30 * u}px ${30 * u}px`, background: `linear-gradient(180deg, ${m.color}, ${m.color}44)` }} />
+        <Img src={staticFile(m.photo)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", objectPosition: "bottom" }} />
+      </div>
+      <div style={{ position: "relative", maxWidth: 560 * u, display: "flex", flexDirection: "column", gap: 22 * u, marginTop: 260 * u }}>
+        <Label color={m.color}>Meet the team</Label>
+        <Big size={96}>{m.name}<span style={{ color: m.color }}>.</span></Big>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 * u }}>
+          {m.roles.slice(0, 4).map((r) => (
+            <span key={r} style={{ fontFamily: F.display, fontWeight: 500, fontSize: 34 * u, color: C.ink }}>
+              <span style={{ color: m.color }}>✦ </span>
+              {r}
+            </span>
+          ))}
+        </div>
+      </div>
     </Frame>
   );
 };

@@ -2,9 +2,12 @@ import React from "react";
 import { Composition, Folder, Still } from "remotion";
 import { Showreel, SHOWREEL_FRAMES } from "./Showreel";
 import { AdVideo, AD_FRAMES, joinAd, serviceAd } from "./Ads";
+import { MeetTheTeam, MEET_FRAMES } from "./MeetTheTeam";
+import { MemberSpotlight, SPOTLIGHT_FULL } from "./scenes/MemberSpotlight";
 import {
   CountdownStory,
   JoinPoster,
+  MemberPoster,
   LaunchPoster,
   ProcessSlide,
   QuotePoster,
@@ -42,6 +45,19 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Scene-Shapes" component={ShapesScene} durationInFrames={160} fps={FPS} width={1080} height={1920} />
         <Composition id="Scene-Team" component={TeamScene} durationInFrames={150} fps={FPS} width={1080} height={1920} />
         <Composition id="Scene-Outro" component={OutroScene} durationInFrames={120} fps={FPS} width={1080} height={1920} defaultProps={{ cta: "Book a project", path: "" }} />
+      </Folder>
+
+      <Folder name="Team">
+        <Composition id="MeetTheTeam-9x16" component={MeetTheTeam} durationInFrames={MEET_FRAMES} fps={FPS} width={1080} height={1920} />
+        <Composition id="MeetTheTeam-4x5" component={MeetTheTeam} durationInFrames={MEET_FRAMES} fps={FPS} width={1080} height={1350} />
+        <Composition id="Spotlight-shan" component={MemberSpotlight} durationInFrames={SPOTLIGHT_FULL} fps={FPS} width={1080} height={1920} defaultProps={{ slug: "shan-patrick-cruz", compact: false }} />
+        <Composition id="Spotlight-justine" component={MemberSpotlight} durationInFrames={SPOTLIGHT_FULL} fps={FPS} width={1080} height={1920} defaultProps={{ slug: "justine-mojica", compact: false }} />
+        <Composition id="Spotlight-rei" component={MemberSpotlight} durationInFrames={SPOTLIGHT_FULL} fps={FPS} width={1080} height={1920} defaultProps={{ slug: "reinard-gabriel-saddi", compact: false }} />
+        <Composition id="Spotlight-orlando" component={MemberSpotlight} durationInFrames={SPOTLIGHT_FULL} fps={FPS} width={1080} height={1920} defaultProps={{ slug: "orlando-chavez", compact: false }} />
+        <Still id="Poster-Member-shan" component={MemberPoster} width={1080} height={1350} defaultProps={{ slug: "shan-patrick-cruz" }} />
+        <Still id="Poster-Member-justine" component={MemberPoster} width={1080} height={1350} defaultProps={{ slug: "justine-mojica" }} />
+        <Still id="Poster-Member-rei" component={MemberPoster} width={1080} height={1350} defaultProps={{ slug: "reinard-gabriel-saddi" }} />
+        <Still id="Poster-Member-orlando" component={MemberPoster} width={1080} height={1350} defaultProps={{ slug: "orlando-chavez" }} />
       </Folder>
 
       <Folder name="Ads">
