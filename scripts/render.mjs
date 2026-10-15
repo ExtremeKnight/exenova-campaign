@@ -47,7 +47,7 @@ for (const comp of comps) {
       codec: "h264",
       crf: 18,
       audioBitrate: "192k",
-      output: path.join(out, "videos", `${comp.id}.mp4`),
+      outputLocation: path.join(out, "videos", `${comp.id}.mp4`),
       inputProps: comp.defaultProps,
       concurrency: null,
     });
