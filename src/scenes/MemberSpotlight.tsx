@@ -159,12 +159,12 @@ export const MemberSpotlight: React.FC<{ slug: string; compact?: boolean }> = ({
             </div>
           ) : (
             <div style={{ display: "flex", flexWrap: "wrap", gap: 16 * u }}>
-              {(m.works.length ? m.works.map((w) => w.title) : m.tools.length ? m.tools : ["Profile coming soon"]).map((t, i) => {
+              {(m.works.length ? m.works.map((w) => w.title) : m.tools.length ? m.tools : ["Profile coming soon"]).map((t, i, arr) => {
                 const p = spring({ frame: frame - 168 - i * 6, fps, config: { damping: 12 } });
                 return (
                   <span key={t} style={{ scale: p, opacity: Math.min(1, p), fontFamily: F.display, fontWeight: 700, fontSize: 64 * u, color: i % 2 ? m.color : C.ink, letterSpacing: "-0.03em" }}>
                     {t}
-                    {i < 9 && <span style={{ color: C.muted }}> /</span>}
+                    {i < arr.length - 1 && <span style={{ color: C.muted }}> /</span>}
                   </span>
                 );
               })}

@@ -158,19 +158,19 @@ export const MemberPoster: React.FC<{ slug: string }> = ({ slug }) => {
   const m = MEMBERS.find((x) => x.slug === slug) ?? MEMBERS[0];
   return (
     <Frame tint={m.color} footer="/team">
-      <div style={{ position: "absolute", left: 0, right: 0, top: 120 * u, fontFamily: F.display, fontWeight: 700, fontSize: 300 * u, lineHeight: 1, letterSpacing: "-0.05em", color: "transparent", WebkitTextStroke: `${3 * u}px ${m.color}`, whiteSpace: "nowrap", textAlign: "center", opacity: 0.8 }}>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 230 * u, fontFamily: F.display, fontWeight: 700, fontSize: 260 * u, lineHeight: 1, letterSpacing: "-0.05em", color: "transparent", WebkitTextStroke: `${3 * u}px ${m.color}`, whiteSpace: "nowrap", textAlign: "center", opacity: 0.8 }}>
         {m.nickname}
       </div>
-      <div style={{ position: "absolute", right: 30 * u, bottom: 110 * u, width: 640 * u, height: 860 * u }}>
+      <div style={{ position: "absolute", right: 0, bottom: 112 * u, width: 560 * u, height: 760 * u }}>
         <div style={{ position: "absolute", left: "8%", right: "8%", bottom: 0, height: "78%", borderRadius: `${300 * u}px ${300 * u}px ${30 * u}px ${30 * u}px`, background: `linear-gradient(180deg, ${m.color}, ${m.color}44)` }} />
         <Img src={staticFile(m.photo)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", objectPosition: "bottom" }} />
       </div>
-      <div style={{ position: "relative", maxWidth: 560 * u, display: "flex", flexDirection: "column", gap: 22 * u, marginTop: 260 * u }}>
+      <div style={{ position: "relative", maxWidth: 470 * u, display: "flex", flexDirection: "column", gap: 22 * u, marginTop: 380 * u }}>
         <Label color={m.color}>Meet the team</Label>
-        <Big size={96}>{m.name}<span style={{ color: m.color }}>.</span></Big>
+        <Big size={84}>{m.name}<span style={{ color: m.color }}>.</span></Big>
         <div style={{ display: "flex", flexDirection: "column", gap: 10 * u }}>
           {m.roles.slice(0, 4).map((r) => (
-            <span key={r} style={{ fontFamily: F.display, fontWeight: 500, fontSize: 34 * u, color: C.ink }}>
+            <span key={r} style={{ fontFamily: F.display, fontWeight: 500, fontSize: 30 * u, color: C.ink }}>
               <span style={{ color: m.color }}>✦ </span>
               {r}
             </span>
