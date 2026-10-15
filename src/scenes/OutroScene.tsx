@@ -31,7 +31,9 @@ export const OutroScene: React.FC<{ cta?: string; path?: string }> = ({ cta = "B
           Exenova<span style={{ color: C.coral }}>.</span>
         </div>
         <div style={{ height: 4 * u, width: 640 * u * prog(frame, 14, 22), background: `linear-gradient(90deg, ${C.accent}, ${C.coral})` }} />
-        <TypeLine text={`${SITE}${path}`} start={22} cps={2} size={(portrait ? 36 : 32) * u} color={C.muted} cursor={frame < 70} />
+        <div style={{ maxWidth: 900 * u, textAlign: "center", overflowWrap: "anywhere" }}>
+          <TypeLine text={`${SITE}${path}`} start={22} cps={2.4} size={(portrait ? 34 : 32) * u} color={C.muted} cursor={frame < 70} wrap />
+        </div>
         <div
           style={{
             marginTop: 20 * u,

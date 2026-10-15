@@ -93,7 +93,7 @@ export const ServicePoster: React.FC<{ service: ServiceKey; index: number }> = (
   const s = SERVICES.find((x) => x.key === service)!;
   return (
     <Frame tint={s.color} footer={`/services/${s.slug}`}>
-      <div style={{ position: "absolute", right: -120 * u, top: 220 * u, opacity: 0.9, filter: `drop-shadow(0 0 ${80 * u}px ${s.color}66)` }}>
+      <div style={{ position: "absolute", right: -170 * u, bottom: 110 * u, opacity: 0.38, filter: `drop-shadow(0 0 ${80 * u}px ${s.color}66)` }}>
         <ServiceGlyph kind={s.key} size={620 * u} color={s.color} filled={false} strokeWidth={10 * u} />
       </div>
       <Label color={s.color}>{String(index).padStart(2, "0")} — Services</Label>

@@ -83,8 +83,8 @@ const Reveal: React.FC<{ c: AdContent }> = ({ c }) => {
           <ServiceGlyph kind={c.glyph} size={260 * u} color={c.color} />
         </div>
         <Eyebrow color={c.color} start={10}>{c.eyebrow}</Eyebrow>
-        <SplitText text={c.title} size={(portrait ? 104 : 96) * u} start={14} stagger={1} />
-        <div style={{ fontFamily: F.body, fontSize: (portrait ? 44 : 38) * u, lineHeight: 1.35, color: C.muted, maxWidth: 900 * u, opacity: prog(frame, 40, 20), translate: `0 ${(1 - prog(frame, 40, 20)) * 30 * u}px` }}>
+        <SplitText text={c.title} size={(portrait ? 118 : 100) * u} start={14} stagger={1} />
+        <div style={{ fontFamily: F.body, fontSize: (portrait ? 50 : 40) * u, lineHeight: 1.35, color: C.muted, maxWidth: 900 * u, opacity: prog(frame, 40, 20), translate: `0 ${(1 - prog(frame, 40, 20)) * 30 * u}px` }}>
           {c.pitch}
         </div>
       </AbsoluteFill>

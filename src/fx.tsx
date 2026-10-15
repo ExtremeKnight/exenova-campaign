@@ -120,6 +120,13 @@ export const SplitText: React.FC<{
   style?: React.CSSProperties;
 }> = ({ text, start = 0, stagger = 2, size, color = C.ink, font = F.display, weight = 700, tracking = -0.04, style }) => {
   const frame = useCurrentFrame();
+  // Character offsets keep the stagger continuous across words.
+  let offset = 0;
+  const words = text.split(" ").map((word) => {
+    const w = { word, offset };
+    offset += [...word].length + 1;
+    return w;
+  });
   return (
     <div
       style={{
@@ -131,44 +138,49 @@ export const SplitText: React.FC<{
         color,
         display: "flex",
         flexWrap: "wrap",
-        whiteSpace: "pre",
+        columnGap: "0.25em",
         ...style,
       }}
     >
-      {[...text].map((ch, i) => {
-        const p = prog(frame, start + i * stagger, 18);
-        return (
-          <span
-            key={i}
-            style={{
-              display: "inline-block",
-              opacity: p,
-              translate: `0 ${(1 - p) * 0.55 * size}px`,
-              filter: `blur(${(1 - p) * 12}px)`,
-            }}
-          >
-            {ch}
-          </span>
-        );
-      })}
+      {words.map(({ word, offset }) => (
+        <span key={offset} style={{ display: "inline-flex", whiteSpace: "nowrap" }}>
+          {[...word].map((ch, j) => {
+            const p = prog(frame, start + (offset + j) * stagger, 18);
+            return (
+              <span
+                key={j}
+                style={{
+                  display: "inline-block",
+                  opacity: p,
+                  translate: `0 ${(1 - p) * 0.55 * size}px`,
+                  filter: `blur(${(1 - p) * 12}px)`,
+                }}
+              >
+                {ch}
+              </span>
+            );
+          })}
+        </span>
+      ))}
     </div>
   );
 };
 
 /** Typewriter reveal with a blinking block cursor. */
-export const TypeLine: React.FC<{ text: string; start?: number; cps?: number; size: number; color?: string; cursor?: boolean }> = ({
+export const TypeLine: React.FC<{ text: string; start?: number; cps?: number; size: number; color?: string; cursor?: boolean; wrap?: boolean }> = ({
   text,
   start = 0,
   cps = 1.4,
   size,
   color = C.amber,
   cursor = true,
+  wrap = false,
 }) => {
   const frame = useCurrentFrame();
   const shown = Math.max(0, Math.floor((frame - start) * cps));
   const blink = Math.floor(frame / 8) % 2 === 0;
   return (
-    <div style={{ fontFamily: F.mono, fontSize: size, color, whiteSpace: "pre" }}>
+    <div style={{ fontFamily: F.mono, fontSize: size, color, whiteSpace: wrap ? "pre-wrap" : "pre", wordBreak: wrap ? "break-all" : undefined }}>
       {text.slice(0, shown)}
       {cursor && <span style={{ opacity: blink ? 1 : 0 }}>▋</span>}
     </div>

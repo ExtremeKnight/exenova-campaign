@@ -21,6 +21,7 @@ export const ServicesScene: React.FC = () => {
           flexDirection: portrait ? "column" : "row",
           gap: (portrait ? 60 : 90) * u,
           alignItems: portrait ? "stretch" : "center",
+          justifyContent: "center",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: 26 * u, flex: portrait ? undefined : 1 }}>

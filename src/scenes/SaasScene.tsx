@@ -15,7 +15,8 @@ export const SaasScene: React.FC = () => {
 
   const viewB = prog(frame, 108, 14);
   const viewC = prog(frame, 160, 16);
-  const s = W / 1180; // inner content scale relative to the landscape design
+  // Inner content scale relative to the landscape design; tall formats zoom in for legibility.
+  const s = portrait ? W / 900 : W / 1180;
 
   // Cursor path: enter bottom-right → hover "Team" → hold → drift down.
   // "Team" sits ~142 design-px left of the nav's right edge, ~60 below the chrome.
