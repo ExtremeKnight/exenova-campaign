@@ -1,54 +1,38 @@
-# Remotion video
+# Exenova — 30-day social campaign
 
-<p align="center">
-  <a href="https://github.com/remotion-dev/logo">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-dark.apng">
-      <img alt="Animated Remotion Logo" src="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-light.gif">
-    </picture>
-  </a>
-</p>
+Motion graphics, ads and posters for TikTok, Instagram and Facebook, built in code with [Remotion](https://www.remotion.dev) so every asset stays on-brand and can be re-rendered after a text change.
 
-Welcome to your Remotion project!
+| Output | Formats | Compositions |
+|---|---|---|
+| Showreel (≈39 s) | 9:16 · 4:5 · 16:9 | `Showreel-9x16`, `Showreel-4x5`, `Showreel-16x9` |
+| Ads (15 s) | 9:16 | `Ad-brand`, `Ad-web`, `Ad-film`, `Ad-interactive`, `Ad-uiux`, `Ad-join` |
+| Posters | 4:5 feed · 9:16 story | `Poster-*`, `Process-0..5` (carousel), `Quote-*`, `Tip-*`, `Countdown-*` |
 
-## Commands
+The day-by-day plan with captions, hashtags and posting times is in [`campaign/PLAN.md`](campaign/PLAN.md) (spreadsheet: `campaign/plan.csv`).
 
-**Install Dependencies**
+## Editing
 
-```console
-npm i --loglevel=error
-```
+- Brand colours, service copy, project names, open roles: `src/brand.ts`
+- Showreel scene order and timing: `src/Showreel.tsx`; each scene is in `src/scenes/`
+- Ad copy per service comes from `src/brand.ts`; the recruitment ad is `joinAd` in `src/Ads.tsx`
+- Poster text: `defaultProps` in `src/Root.tsx`
+- The plan: edit `campaign/plan.mjs`, then `node campaign/plan.mjs`
 
-**Start Preview**
+Preview everything interactively with `npm run dev` (Remotion Studio).
 
-```console
-npm run dev
-```
+## Rendering
 
-**Render video**
+Rendering runs on GitHub Actions so it doesn't load the laptop: **Actions → Render campaign → Run workflow**.
 
-```console
-npx remotion render
-```
+- `preview` renders sample frames from each video plus all posters (a few minutes)
+- `full` renders every MP4 and poster (≈15–20 minutes)
+- `only` limits the run to some ids, e.g. `Ad-web,Poster-Join-4x5`
 
-**Upgrade Remotion**
+Download the result from the run's **Artifacts**. Locally: `node scripts/render.mjs [preview]`.
 
-```console
-npx remotion upgrade
-```
+## Posting notes
 
-## Docs
+- Videos ship with transition sound effects only — add a trending sound in TikTok / Instagram when posting.
+- Burned-in text sits inside the 9:16 safe area, clear of the TikTok/Reels UI on the right and bottom.
 
-Get started with Remotion by reading the [fundamentals page](https://www.remotion.dev/docs/the-fundamentals).
-
-## Help
-
-We provide help on our [Discord server](https://discord.gg/6VzzNDwUwV).
-
-## Issues
-
-Found an issue with Remotion? [File an issue here](https://github.com/remotion-dev/remotion/issues/new).
-
-## License
-
-Note that for some entities a company license is needed. [Read the terms here](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md).
+Remotion is free for individuals and companies of up to 3 people; larger teams need a [company license](https://www.remotion.dev/license).
