@@ -5,7 +5,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 export const START = "2026-10-19"; // Monday
-const SITE = "exenova-portfolio.vercel.app";
+const SITE = "exenova.is-local.host";
 const TAGS = {
   core: "#Exenova #CreativeStudio #PHCreatives",
   brand: "#Branding #GraphicDesign #LogoDesign #BrandIdentity",

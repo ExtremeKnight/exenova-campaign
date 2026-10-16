@@ -23,7 +23,7 @@ export const F = {
   mono: loadMono("normal", { weights: ["400", "500", "700"], subsets: ["latin"] }).fontFamily,
 };
 
-export const SITE = "exenova-portfolio.vercel.app";
+export const SITE = "exenova.is-local.host";
 export const HANDLE = "@exenova";
 
 export type ServiceKey = "brand" | "web" | "film" | "interactive" | "uiux";

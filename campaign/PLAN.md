@@ -66,7 +66,7 @@ CTA: Set a reminder
 
 Exenova is now a team. Brand, web, film and interactive — designed, coded and told by one creative collective. This is our showreel. 🎬
 
-CTA: Book a project → exenova-portfolio.vercel.app
+CTA: Book a project → exenova.is-local.host
 
 #Exenova #CreativeStudio #PHCreatives #MotionDesign #MotionGraphics #2DAnimation #Showreel
 
@@ -122,7 +122,7 @@ CTA: Work with us
 
 Your brand looks like everyone else's? Let's fix that. Logos, identity systems and campaign graphics people remember.
 
-CTA: Get a quote → exenova-portfolio.vercel.app/services/brand-graphic-design
+CTA: Get a quote → exenova.is-local.host/services/brand-graphic-design
 
 #Exenova #CreativeStudio #PHCreatives #Branding #GraphicDesign #LogoDesign #BrandIdentity
 
@@ -138,7 +138,7 @@ CTA: Save this
 
 Still sending people to a link-in-bio? Get a fast site with a CMS you'll actually use.
 
-CTA: Get a quote → exenova-portfolio.vercel.app/services/web-development
+CTA: Get a quote → exenova.is-local.host/services/web-development
 
 #Exenova #CreativeStudio #PHCreatives #WebDevelopment #WebDesign #Nextjs #UIUX
 
@@ -154,7 +154,7 @@ CTA: Save this
 
 Scrolling past your own videos? Showreels, music videos, ads and short films — from concept to colour.
 
-CTA: Get a quote → exenova-portfolio.vercel.app/services/film-video-production
+CTA: Get a quote → exenova.is-local.host/services/film-video-production
 
 #Exenova #CreativeStudio #PHCreatives #VideoEditing #Filmmaking #MusicVideo #ColorGrading
 
@@ -170,7 +170,7 @@ CTA: Save this
 
 What if your audience could play it? Games, AR moments and interfaces people enjoy.
 
-CTA: Explore → exenova-portfolio.vercel.app/services
+CTA: Explore → exenova.is-local.host/services
 
 #Exenova #CreativeStudio #PHCreatives #GameDev #IndieGame #InteractiveDesign #WebAR
 
@@ -178,7 +178,7 @@ CTA: Explore → exenova-portfolio.vercel.app/services
 
 Meet the people behind the work: Shan, Justine, Rei and Orlando. Designers, illustrators, 3D and motion artists — one collective. 👋
 
-CTA: Meet everyone → exenova-portfolio.vercel.app/team
+CTA: Meet everyone → exenova.is-local.host/team
 
 #Exenova #CreativeStudio #PHCreatives #MotionDesign #MotionGraphics #2DAnimation #Showreel
 
@@ -186,7 +186,7 @@ CTA: Meet everyone → exenova-portfolio.vercel.app/team
 
 Great work deserves a team behind it. We're looking for illustrators, editors, motion designers and developers. Remote. 🌏
 
-CTA: Apply → exenova-portfolio.vercel.app/join
+CTA: Apply → exenova.is-local.host/join
 
 #Exenova #CreativeStudio #PHCreatives #Hiring #FreelancePH #CreativeJobs #RemoteWork
 
@@ -194,7 +194,7 @@ CTA: Apply → exenova-portfolio.vercel.app/join
 
 Spotlight: Shan Patrick Cruz — graphic designer, full-stack developer and motion designer. Founder of Exenova.
 
-CTA: Work with Shan → exenova-portfolio.vercel.app/team
+CTA: Work with Shan → exenova.is-local.host/team
 
 #Exenova #CreativeStudio #PHCreatives #Branding #GraphicDesign #LogoDesign #BrandIdentity #WebDevelopment #WebDesign #Nextjs #UIUX
 
@@ -210,7 +210,7 @@ CTA: Link sticker → /join
 
 Spotlight: Justine Mojica (JuzziJuzzi) — illustrator, 3D artist and motion designer. From Zino NextBeats to Memphis Playground. 🎧
 
-CTA: Work with Justine → exenova-portfolio.vercel.app/team
+CTA: Work with Justine → exenova.is-local.host/team
 
 #Exenova #CreativeStudio #PHCreatives #MotionDesign #MotionGraphics #2DAnimation #Showreel #3DArt #Blender
 
@@ -226,7 +226,7 @@ CTA: Save this
 
 Spotlight: Reinard Gabriel Saddi (Rei) — character design, digital illustration and webtoon layout. ✍️
 
-CTA: Work with Rei → exenova-portfolio.vercel.app/team
+CTA: Work with Rei → exenova.is-local.host/team
 
 #Exenova #CreativeStudio #PHCreatives #DigitalArt #CharacterDesign #Webtoon
 
@@ -250,7 +250,7 @@ CTA: Read more on our site
 
 Spotlight: Orlando Chavez (Oreo) — multimedia artist and graphic designer, from documentary film and music videos to packaging and photography. 🎬📷
 
-CTA: Meet Orlando → exenova-portfolio.vercel.app/team
+CTA: Meet Orlando → exenova.is-local.host/team
 
 #Exenova #CreativeStudio #PHCreatives #VideoEditing #Filmmaking #MusicVideo #ColorGrading #Photography #PackagingDesign
 
@@ -274,6 +274,6 @@ CTA: Share it
 
 30 days in. If you've got a brand, a site, a film or a game in mind, let's make it together. Free first call. ✨
 
-CTA: Book → exenova-portfolio.vercel.app/#contact
+CTA: Book → exenova.is-local.host/#contact
 
 #Exenova #CreativeStudio #PHCreatives #Branding #GraphicDesign #LogoDesign #BrandIdentity #WebDevelopment #WebDesign #Nextjs #UIUX #VideoEditing #Filmmaking #MusicVideo #ColorGrading
