@@ -161,7 +161,7 @@ export const MemberPoster: React.FC<{ slug: string }> = ({ slug }) => {
       <div style={{ position: "absolute", left: 0, right: 0, top: 230 * u, fontFamily: F.display, fontWeight: 700, fontSize: 260 * u, lineHeight: 1, letterSpacing: "-0.05em", color: "transparent", WebkitTextStroke: `${3 * u}px ${m.color}`, whiteSpace: "nowrap", textAlign: "center", opacity: 0.8 }}>
         {m.nickname}
       </div>
-      <div style={{ position: "absolute", right: 0, bottom: 112 * u, width: 560 * u, height: 760 * u }}>
+      <div style={{ position: "absolute", right: 0, bottom: 236 * u, width: 520 * u, height: 680 * u }}>
         <div style={{ position: "absolute", left: "8%", right: "8%", bottom: 0, height: "78%", borderRadius: `${300 * u}px ${300 * u}px ${30 * u}px ${30 * u}px`, background: `linear-gradient(180deg, ${m.color}, ${m.color}44)` }} />
         <Img src={staticFile(m.photo)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", objectPosition: "bottom" }} />
       </div>

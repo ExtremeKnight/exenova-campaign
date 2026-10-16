@@ -248,11 +248,11 @@ CTA: Read more on our site
 
 **Day 27 — Spotlight: Orlando**
 
-Spotlight: Orlando Chavez (Oreo) — the newest face in the collective. (Update roles and works in src/brand.ts before posting.)
+Spotlight: Orlando Chavez (Oreo) — multimedia artist and graphic designer, from documentary film and music videos to packaging and photography. 🎬📷
 
 CTA: Meet Orlando → exenova-portfolio.vercel.app/team
 
-#Exenova #CreativeStudio #PHCreatives
+#Exenova #CreativeStudio #PHCreatives #VideoEditing #Filmmaking #MusicVideo #ColorGrading #Photography #PackagingDesign
 
 **Day 28 — Quote #3**
 

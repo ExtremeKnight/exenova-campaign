@@ -177,15 +177,16 @@ export const MEMBERS: Member[] = [
     color: C.amber,
   },
   {
-    // Orlando's Figma page isn't finished yet — fill in roles, tagline and works here.
+    // From his (unfinished) Figma page. His Figma work cards are still placeholders,
+    // so "works" lists his production areas rather than named projects.
     slug: "orlando-chavez",
     name: "Orlando Chavez",
     nickname: "OREO",
-    discipline: "Creative",
-    roles: ["Multimedia Artist"],
-    tagline: "New to the collective — full profile coming soon.",
-    tools: [],
-    works: [],
+    discipline: "Design · Film · Photo",
+    roles: ["Multimedia Artist", "Graphic Designer", "Photography", "Packaging Design"],
+    tagline: "Multimedia artist rooted in graphic design, documentary film and music video production.",
+    tools: ["Figma", "Illustrator", "Blender", "DaVinci Resolve"],
+    works: [{ title: "Documentary Film" }, { title: "Music Videos" }, { title: "Packaging Design" }, { title: "Background Art" }],
     photo: "team/orlando-chavez.webp",
     color: C.moss,
   },

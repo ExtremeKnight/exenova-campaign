@@ -80,7 +80,7 @@ export const DAYS = [
   { phase: "Proof", theme: "Case study: brand", platforms: "IG Feed · FB Post", format: "Carousel (your project images)", asset: "Gallery: Magbungkal PH / BRWTL images from the site", time: "12:00",
     caption: "Case study: how we built a consistent identity for Magbungkal PH across every platform.", tags: `${TAGS.core} ${TAGS.brand}`, cta: "Read more on our site" },
   { phase: "Proof", theme: "Spotlight: Orlando", platforms: "TT · IG Reel · FB Reel + IG Feed", format: "Video 9:16 (0:12) + Image 4:5", asset: "videos/Spotlight-orlando.mp4 + posters/Poster-Member-orlando.png", time: "20:00",
-    caption: "Spotlight: Orlando Chavez (Oreo) — the newest face in the collective. (Update roles and works in src/brand.ts before posting.)", tags: TAGS.core, cta: `Meet Orlando → ${SITE}/team` },
+    caption: "Spotlight: Orlando Chavez (Oreo) — multimedia artist and graphic designer, from documentary film and music videos to packaging and photography. 🎬📷", tags: `${TAGS.core} ${TAGS.film} #Photography #PackagingDesign`, cta: `Meet Orlando → ${SITE}/team` },
   { phase: "Proof", theme: "Quote #3", platforms: "IG Feed · FB Post", format: "Image 4:5", asset: "posters/Quote-3.png", time: "12:00",
     caption: "What clients say about working with us.", tags: TAGS.core, cta: "Work with us" },
   { phase: "Proof", theme: "Showreel (feed cut)", platforms: "IG Feed · FB Post", format: "Video 4:5 (0:39)", asset: "videos/Showreel-4x5.mp4", time: "20:00",
