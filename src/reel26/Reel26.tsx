@@ -1,5 +1,11 @@
 import React from "react";
-import { AbsoluteFill, Audio, Sequence, interpolate, staticFile } from "remotion";
+import {
+  AbsoluteFill,
+  Audio,
+  Sequence,
+  interpolate,
+  staticFile,
+} from "remotion";
 import { C } from "../brand";
 import { Sfx } from "../fx";
 import { Captions } from "./Captions";
@@ -20,7 +26,8 @@ const sfx = (name: string) => staticFile(`reel/audio/sfx/${name}.mp3`);
 // the impacts on each section's downbeat (scripts/reel26-audio.py).
 function soundEffects(): { at: number; name: string; volume: number }[] {
   const out: { at: number; name: string; volume: number }[] = [];
-  const add = (at: number, name: string, volume: number) => out.push({ at: Math.round(at), name, volume });
+  const add = (at: number, name: string, volume: number) =>
+    out.push({ at: Math.round(at), name, volume });
 
   // Intro: a tick under each word of the opening line, glitches, shimmer on the logo
   for (let i = 0; i < 5; i++) add(BEAT + i * BEAT, "tick", 0.35);
@@ -41,19 +48,23 @@ function soundEffects(): { at: number; name: string; volume: number }[] {
 
   // Services: swipe per panel, shimmer as the five marks merge
   add(SECTIONS.services.from - 4, "whoosh", 0.3);
-  for (let i = 0; i < 5; i++) add(SECTIONS.services.from + 30 + i * 3 * BEAT, "swipe", 0.34);
+  for (let i = 0; i < 5; i++)
+    add(SECTIONS.services.from + 30 + i * 3 * BEAT, "swipe", 0.34);
   add(SECTIONS.services.from + 30 + 15 * BEAT + 56, "shimmer", 0.3);
 
   // Web: soft whoosh in, a pop for each feature chip as it's said
   add(SECTIONS.web.from - 4, "whoosh", 0.22);
-  for (const w of ["fast", "accessible", "easy"]) add(wordFrame("07", w), "pop", 0.4);
+  for (const w of ["fast", "accessible", "easy"])
+    add(wordFrame("07", w), "pop", 0.4);
 
   // Team: a pop as each portrait appears
   add(SECTIONS.team.from - 4, "whoosh", 0.28);
-  for (const n of ["Shan", "Justine", "Rei", "Orlando"]) add(wordFrame("08", n), "pop", 0.42);
+  for (const n of ["Shan", "Justine", "Rei", "Orlando"])
+    add(wordFrame("08", n), "pop", 0.42);
 
   // Outro: ticks on the tagline, impact + shimmer on the logo hit
-  for (const w of ["Design", "code", "story"]) add(wordFrame("09", w), "tick", 0.32);
+  for (const w of ["Design", "code", "story"])
+    add(wordFrame("09", w), "tick", 0.32);
   add(SECTIONS.outro.from + 4 * FPS, "impact", 0.45);
   add(SECTIONS.outro.from + 4 * FPS + 2, "shimmer", 0.4);
   return out;
@@ -62,13 +73,24 @@ function soundEffects(): { at: number; name: string; volume: number }[] {
 /** Song level: full on its own, dipped under each narration line. */
 function songVolume(frame: number, narration: boolean) {
   const base = 0.9;
-  const fadeOut = interpolate(frame, [REEL26_FRAMES - 45, REEL26_FRAMES], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const fadeOut = interpolate(
+    frame,
+    [REEL26_FRAMES - 45, REEL26_FRAMES],
+    [1, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
   if (!narration) return base * fadeOut;
   let duck = 0;
   for (const l of VOICE) {
     const a = l.at * FPS - 5;
     const b = (l.at + l.dur) * FPS + 8;
-    duck = Math.max(duck, interpolate(frame, [a - 6, a, b, b + 10], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
+    duck = Math.max(
+      duck,
+      interpolate(frame, [a - 6, a, b, b + 10], [0, 1, 1, 0], {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp",
+      }),
+    );
   }
   return (base - duck * 0.58) * fadeOut;
 }
@@ -92,7 +114,10 @@ export const Reel26: React.FC<Reel26Props> = ({ narration }) => {
 
       {narration && <Captions />}
 
-      <Audio src={staticFile("reel/audio/song.mp3")} volume={(f) => songVolume(f, narration)} />
+      <Audio
+        src={staticFile("reel/audio/song.mp3")}
+        volume={(f) => songVolume(f, narration)}
+      />
       {narration &&
         VOICE.map((l) => (
           <Sequence key={l.id} from={lineFrame(l)} layout="none">
@@ -100,7 +125,12 @@ export const Reel26: React.FC<Reel26Props> = ({ narration }) => {
           </Sequence>
         ))}
       {soundEffects().map((s, i) => (
-        <Sfx key={i} at={s.at} src={sfx(s.name)} volume={narration ? s.volume * 0.8 : s.volume} />
+        <Sfx
+          key={i}
+          at={s.at}
+          src={sfx(s.name)}
+          volume={narration ? s.volume * 0.8 : s.volume}
+        />
       ))}
     </AbsoluteFill>
   );

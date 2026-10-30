@@ -1,5 +1,12 @@
 import React from "react";
-import { AbsoluteFill, Sequence, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import {
+  AbsoluteFill,
+  Sequence,
+  interpolate,
+  spring,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
 import { C, F, SERVICES, type ServiceKey } from "../brand";
 import { Backdrop, Eyebrow, Grain, SplitText, prog, useLayout } from "../fx";
 import { ServiceGlyph } from "../glyphs";
@@ -26,9 +33,19 @@ const ServicePanel: React.FC<{ i: number }> = ({ i }) => {
   return (
     <AbsoluteFill style={{ backgroundColor: C.paperDeep, overflow: "hidden" }}>
       <AbsoluteFill style={{ opacity: 0.32 }}>
-        <Footage clip={CLIP[s.key]} dur={EACH} zoom={[1.15, 1.05]} startFrom={8} dim={0.5} />
+        <Footage
+          clip={CLIP[s.key]}
+          dur={EACH}
+          zoom={[1.15, 1.05]}
+          startFrom={8}
+          dim={0.5}
+        />
       </AbsoluteFill>
-      <AbsoluteFill style={{ background: `linear-gradient(${portrait ? 180 : 100}deg, ${C.paperDeep} 20%, ${s.color}33 100%)` }} />
+      <AbsoluteFill
+        style={{
+          background: `linear-gradient(${portrait ? 180 : 100}deg, ${C.paperDeep} 20%, ${s.color}33 100%)`,
+        }}
+      />
       <div
         style={{
           position: "absolute",
@@ -58,11 +75,32 @@ const ServicePanel: React.FC<{ i: number }> = ({ i }) => {
           gap: 22 * u,
         }}
       >
-        <div style={{ fontFamily: F.mono, fontSize: 26 * u, letterSpacing: "0.22em", color: s.color }}>
+        <div
+          style={{
+            fontFamily: F.mono,
+            fontSize: 26 * u,
+            letterSpacing: "0.22em",
+            color: s.color,
+          }}
+        >
           {String(i + 1).padStart(2, "0")} / 05
         </div>
-        <SplitText text={s.title} size={(portrait ? 104 : 112) * u} start={0} stagger={1} />
-        <div style={{ fontFamily: F.body, fontSize: (portrait ? 34 : 32) * u, lineHeight: 1.35, color: `${C.ink}cc`, opacity: prog(frame, 8, 12), maxWidth: 820 * u }}>
+        <SplitText
+          text={s.title}
+          size={(portrait ? 104 : 112) * u}
+          start={0}
+          stagger={1}
+        />
+        <div
+          style={{
+            fontFamily: F.body,
+            fontSize: (portrait ? 34 : 32) * u,
+            lineHeight: 1.35,
+            color: `${C.ink}cc`,
+            opacity: prog(frame, 8, 12),
+            maxWidth: 820 * u,
+          }}
+        >
           {s.pitch}
         </div>
       </div>
@@ -82,7 +120,8 @@ const OneTeam: React.FC = () => {
     <AbsoluteFill>
       <Backdrop tint={C.accent} dark />
       {SERVICES.map((s, i) => {
-        const a = (i / SERVICES.length) * Math.PI * 2 - Math.PI / 2 + frame * 0.01;
+        const a =
+          (i / SERVICES.length) * Math.PI * 2 - Math.PI / 2 + frame * 0.01;
         const r = (portrait ? 300 : 340) * u * (1 - merge);
         const appear = prog(frame, i * 3, 12);
         return (
@@ -113,13 +152,34 @@ const OneTeam: React.FC = () => {
           height: 140 * u,
           borderRadius: 999,
           background: `linear-gradient(135deg, ${C.accent}, ${C.coral})`,
-          scale: interpolate(merge, [0.6, 1], [0, 1], { extrapolateLeft: "clamp" }),
+          scale: interpolate(merge, [0.6, 1], [0, 1], {
+            extrapolateLeft: "clamp",
+          }),
           boxShadow: `0 0 ${90 * u}px ${C.accent}`,
         }}
       />
-      <AbsoluteFill style={{ alignItems: "center", paddingTop: (portrait ? 330 : 150) * u, gap: 6 * u }}>
-        <SplitText text="One team." size={(portrait ? 120 : 120) * u} start={2} stagger={1} style={{ justifyContent: "center" }} />
-        <SplitText text="One point of contact." size={(portrait ? 84 : 92) * u} start={14} stagger={1} color={C.accent} style={{ justifyContent: "center", textAlign: "center" }} />
+      <AbsoluteFill
+        style={{
+          alignItems: "center",
+          paddingTop: (portrait ? 330 : 150) * u,
+          gap: 6 * u,
+        }}
+      >
+        <SplitText
+          text="One team."
+          size={(portrait ? 120 : 120) * u}
+          start={2}
+          stagger={1}
+          style={{ justifyContent: "center" }}
+        />
+        <SplitText
+          text="One point of contact."
+          size={(portrait ? 84 : 92) * u}
+          start={14}
+          stagger={1}
+          color={C.accent}
+          style={{ justifyContent: "center", textAlign: "center" }}
+        />
       </AbsoluteFill>
       <Grain />
     </AbsoluteFill>
@@ -134,15 +194,38 @@ export const Services: React.FC = () => {
       <Sequence durationInFrames={HEAD} layout="none">
         <AbsoluteFill>
           <Backdrop tint={C.coral} dark />
-          <AbsoluteFill style={{ justifyContent: "center", padding: `0 ${(portrait ? 80 : 160) * u}px`, gap: 24 * u }}>
+          <AbsoluteFill
+            style={{
+              justifyContent: "center",
+              padding: `0 ${(portrait ? 80 : 160) * u}px`,
+              gap: 24 * u,
+            }}
+          >
             <Eyebrow color={C.coral}>What we make</Eyebrow>
-            <SplitText text="Five crafts." size={(portrait ? 140 : 150) * u} start={2} stagger={1} />
+            <SplitText
+              text="Five crafts."
+              size={(portrait ? 140 : 150) * u}
+              start={2}
+              stagger={1}
+            />
           </AbsoluteFill>
-          <AbsoluteFill style={{ backgroundColor: "#fff", opacity: interpolate(frame, [0, 4], [0.6, 0], { extrapolateRight: "clamp" }) }} />
+          <AbsoluteFill
+            style={{
+              backgroundColor: "#fff",
+              opacity: interpolate(frame, [0, 4], [0.6, 0], {
+                extrapolateRight: "clamp",
+              }),
+            }}
+          />
         </AbsoluteFill>
       </Sequence>
       {SERVICES.map((s, i) => (
-        <Sequence key={s.key} from={HEAD + i * EACH} durationInFrames={EACH} layout="none">
+        <Sequence
+          key={s.key}
+          from={HEAD + i * EACH}
+          durationInFrames={EACH}
+          layout="none"
+        >
           <ServicePanel i={i} />
         </Sequence>
       ))}

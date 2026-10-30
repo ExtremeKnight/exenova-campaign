@@ -1,8 +1,16 @@
 import React from "react";
-import { AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import {
+  AbsoluteFill,
+  Img,
+  interpolate,
+  spring,
+  staticFile,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
 import { C, F, MEMBERS } from "../brand";
 import { Backdrop, Eyebrow, Grain, SplitText, useLayout } from "../fx";
-import { BEAT, SECTIONS } from "./timeline";
+import { ABOVE_CAPTIONS, BEAT, SECTIONS } from "./timeline";
 import { wordFrame } from "./voice";
 
 // Each portrait pops in as the narrator says the name (same timing in the
@@ -16,13 +24,22 @@ export const Team: React.FC = () => {
   const appear = NAMES.map((n) => wordFrame("08", n) - SECTIONS.team.from);
   const cols = landscape ? 4 : 2;
   const gap = 26 * u;
-  const areaTop = portrait ? height * 0.36 : landscape ? height * 0.36 : height * 0.32;
-  // Cards fill the width, but never run into the bottom margin (the 9:16
-  // margin keeps clear of TikTok/Reels buttons).
+  const areaTop = portrait
+    ? height * 0.36
+    : landscape
+      ? height * 0.36
+      : height * 0.32;
+  // Cards fill the width, but stay above the caption band.
   const rows = MEMBERS.length / cols;
   const ratio = landscape ? 1.32 : 1.1;
-  const availH = height - areaTop - (portrait ? 330 : 70) * u;
-  const cardH = Math.min(((width - (portrait ? 120 : 160) * u - gap * (cols - 1)) / cols) * ratio, (availH - gap * (rows - 1)) / rows);
+  const availH =
+    height -
+    areaTop -
+    (portrait ? ABOVE_CAPTIONS.portrait : ABOVE_CAPTIONS.other) * u;
+  const cardH = Math.min(
+    ((width - (portrait ? 120 : 160) * u - gap * (cols - 1)) / cols) * ratio,
+    (availH - gap * (rows - 1)) / rows,
+  );
   const cardW = cardH / ratio;
   const areaW = cardW * cols + gap * (cols - 1);
   const glowBeat = Math.floor((frame - 170) / BEAT);
@@ -30,9 +47,24 @@ export const Team: React.FC = () => {
   return (
     <AbsoluteFill>
       <Backdrop tint={C.coral} />
-      <div style={{ position: "absolute", left: (portrait ? 60 : 80) * u, right: 60 * u, top: (portrait ? 150 : 80) * u, display: "flex", flexDirection: "column", gap: 18 * u }}>
+      <div
+        style={{
+          position: "absolute",
+          left: (portrait ? 60 : 80) * u,
+          right: 60 * u,
+          top: (portrait ? 150 : 80) * u,
+          display: "flex",
+          flexDirection: "column",
+          gap: 18 * u,
+        }}
+      >
         <Eyebrow color={C.coral}>The people behind the work</Eyebrow>
-        <SplitText text="Meet the team." size={(portrait ? 120 : landscape ? 104 : 112) * u} start={4} stagger={1} />
+        <SplitText
+          text="Meet the team."
+          size={(portrait ? 120 : landscape ? 104 : 112) * u}
+          start={4}
+          stagger={1}
+        />
       </div>
       <div
         style={{
@@ -46,9 +78,18 @@ export const Team: React.FC = () => {
         }}
       >
         {MEMBERS.map((m, i) => {
-          const s = spring({ frame: frame - appear[i], fps, config: { damping: 12, stiffness: 150 } });
+          const s = spring({
+            frame: frame - appear[i],
+            fps,
+            config: { damping: 12, stiffness: 150 },
+          });
           const lit = glowBeat >= 0 && glowBeat % MEMBERS.length === i;
-          const lift = interpolate(frame, [appear[i], appear[i] + 90], [30 * u, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+          const lift = interpolate(
+            frame,
+            [appear[i], appear[i] + 90],
+            [30 * u, 0],
+            { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+          );
           return (
             <div
               key={m.slug}
@@ -60,17 +101,65 @@ export const Team: React.FC = () => {
                 overflow: "hidden",
                 background: `linear-gradient(160deg, ${m.color}55, ${C.surface} 70%)`,
                 border: `${3 * u}px solid ${lit ? m.color : `${C.ink}1f`}`,
-                boxShadow: lit ? `0 0 ${60 * u}px ${m.color}aa` : `0 ${20 * u}px ${60 * u}px rgba(0,0,0,0.4)`,
+                boxShadow: lit
+                  ? `0 0 ${60 * u}px ${m.color}aa`
+                  : `0 ${20 * u}px ${60 * u}px rgba(0,0,0,0.4)`,
                 scale: s,
                 opacity: Math.min(1, s * 1.5),
                 translate: `0 ${lift}px`,
               }}
             >
-              <Img src={staticFile(m.photo)} style={{ position: "absolute", left: "8%", bottom: cardH * 0.2, width: "84%", objectFit: "contain" }} />
-              <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: `${18 * u}px ${20 * u}px`, background: `linear-gradient(transparent, ${C.paperDeep}f0 40%)` }}>
-                <div style={{ fontFamily: F.mono, fontSize: 18 * u, letterSpacing: "0.18em", color: m.color }}>{m.nickname}</div>
-                <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: (landscape ? 34 : 38) * u, lineHeight: 1.05, color: C.ink }}>{m.name}</div>
-                <div style={{ fontFamily: F.body, fontSize: 20 * u, color: `${C.ink}b0`, marginTop: 4 * u }}>{m.discipline}</div>
+              <Img
+                src={staticFile(m.photo)}
+                style={{
+                  position: "absolute",
+                  left: "8%",
+                  bottom: cardH * 0.2,
+                  width: "84%",
+                  objectFit: "contain",
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  padding: `${18 * u}px ${20 * u}px`,
+                  background: `linear-gradient(transparent, ${C.paperDeep}f0 40%)`,
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: F.mono,
+                    fontSize: 18 * u,
+                    letterSpacing: "0.18em",
+                    color: m.color,
+                  }}
+                >
+                  {m.nickname}
+                </div>
+                <div
+                  style={{
+                    fontFamily: F.display,
+                    fontWeight: 700,
+                    fontSize: (landscape ? 34 : 38) * u,
+                    lineHeight: 1.05,
+                    color: C.ink,
+                  }}
+                >
+                  {m.name}
+                </div>
+                <div
+                  style={{
+                    fontFamily: F.body,
+                    fontSize: 20 * u,
+                    color: `${C.ink}b0`,
+                    marginTop: 4 * u,
+                  }}
+                >
+                  {m.discipline}
+                </div>
               </div>
             </div>
           );

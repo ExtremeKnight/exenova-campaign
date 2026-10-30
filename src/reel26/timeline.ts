@@ -15,4 +15,10 @@ export const SECTIONS = {
   outro: { from: 26 * BAR, dur: 5 * BAR }, // 52–62 s: logo hit at 56 s, music fades out
 } as const;
 
+// Bottom band kept free for the narrated cut's captions (and, on 9:16, the
+// TikTok/Reels buttons). Labels and cards sit above it in every version, so
+// both cuts share one layout.
+export const CAPTION_BAND = { portrait: 300, other: 46 } as const;
+export const ABOVE_CAPTIONS = { portrait: 440, other: 170 } as const;
+
 export const REEL26_FRAMES = SECTIONS.outro.from + SECTIONS.outro.dur; // 1860 = 62 s
