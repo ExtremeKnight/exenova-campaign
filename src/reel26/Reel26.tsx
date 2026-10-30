@@ -92,8 +92,8 @@ function songVolume(frame: number, narration: boolean) {
       }),
     );
   }
-  // About -14 dB under the voice, so the narration sits ~10 dB above the music.
-  return (base - duck * 0.68) * fadeOut;
+  // About -16 dB under the voice, so the narration sits ~10 dB above the music.
+  return (base - duck * 0.72) * fadeOut;
 }
 
 export const Reel26: React.FC<Reel26Props> = ({ narration }) => {
