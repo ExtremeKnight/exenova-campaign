@@ -1,0 +1,16 @@
+{
+  "voice": "en-US-AndrewNeural",
+  "rate": "-4%",
+  "lines": [
+    { "id": "01", "at": 0.6, "text": "Every idea deserves to be seen." },
+    { "id": "02", "at": 3.2, "text": "We're Exenova — designers, developers and filmmakers, under one roof." },
+    { "id": "03", "at": 9.0, "text": "We shoot it. We draw it. We design it." },
+    { "id": "04", "at": 14.8, "text": "From exhibits and music videos, to short films and full brand identities." },
+    { "id": "05", "at": 24.4, "text": "Brand and graphic design. Web development. Film and video. Interactive and games. UI and UX." },
+    { "id": "06", "at": 32.4, "text": "One team. One point of contact." },
+    { "id": "07", "at": 36.6, "text": "And we build the platforms too — fast, accessible, and easy to run." },
+    { "id": "08", "at": 44.6, "text": "Meet the people behind the work: Shan, Justine, Rei, and Orlando." },
+    { "id": "09", "at": 52.4, "text": "Design meets code meets story." },
+    { "id": "10", "at": 55.6, "text": "Let's make yours." }
+  ]
+}

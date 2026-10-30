@@ -24,6 +24,8 @@ import { ShapesScene } from "./scenes/ShapesScene";
 import { TeamScene } from "./scenes/TeamScene";
 import { OutroScene } from "./scenes/OutroScene";
 import { C } from "./brand";
+import { Reel26 } from "./reel26/Reel26";
+import { REEL26_FRAMES } from "./reel26/timeline";
 
 const FPS = 30;
 
@@ -34,6 +36,16 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Showreel-9x16" component={Showreel} durationInFrames={SHOWREEL_FRAMES} fps={FPS} width={1080} height={1920} />
         <Composition id="Showreel-4x5" component={Showreel} durationInFrames={SHOWREEL_FRAMES} fps={FPS} width={1080} height={1350} />
         <Composition id="Showreel-16x9" component={Showreel} durationInFrames={SHOWREEL_FRAMES} fps={FPS} width={1920} height={1080} />
+      </Folder>
+
+      {/* 2026 showreel: separate from the original above. Music + sound effects, and a narrated cut with captions. */}
+      <Folder name="Showreel-2026">
+        <Composition id="Reel26-16x9" component={Reel26} durationInFrames={REEL26_FRAMES} fps={FPS} width={1920} height={1080} defaultProps={{ narration: false }} />
+        <Composition id="Reel26-9x16" component={Reel26} durationInFrames={REEL26_FRAMES} fps={FPS} width={1080} height={1920} defaultProps={{ narration: false }} />
+        <Composition id="Reel26-4x5" component={Reel26} durationInFrames={REEL26_FRAMES} fps={FPS} width={1080} height={1350} defaultProps={{ narration: false }} />
+        <Composition id="Reel26-Narrated-16x9" component={Reel26} durationInFrames={REEL26_FRAMES} fps={FPS} width={1920} height={1080} defaultProps={{ narration: true }} />
+        <Composition id="Reel26-Narrated-9x16" component={Reel26} durationInFrames={REEL26_FRAMES} fps={FPS} width={1080} height={1920} defaultProps={{ narration: true }} />
+        <Composition id="Reel26-Narrated-4x5" component={Reel26} durationInFrames={REEL26_FRAMES} fps={FPS} width={1080} height={1350} defaultProps={{ narration: true }} />
       </Folder>
 
       <Folder name="Showreel-Scenes">
