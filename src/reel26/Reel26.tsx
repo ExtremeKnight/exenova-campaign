@@ -65,14 +65,14 @@ function soundEffects(): { at: number; name: string; volume: number }[] {
   // Outro: ticks on the tagline, impact + shimmer on the logo hit
   for (const w of ["Design", "code", "story"])
     add(wordFrame("09", w), "tick", 0.32);
-  add(SECTIONS.outro.from + 4 * FPS, "impact", 0.45);
+  add(SECTIONS.outro.from + 4 * FPS, "impact", 0.3);
   add(SECTIONS.outro.from + 4 * FPS + 2, "shimmer", 0.4);
   return out;
 }
 
 /** Song level: full on its own, dipped under each narration line. */
 function songVolume(frame: number, narration: boolean) {
-  const base = 0.9;
+  const base = 0.85;
   const fadeOut = interpolate(
     frame,
     [REEL26_FRAMES - 45, REEL26_FRAMES],
@@ -92,7 +92,8 @@ function songVolume(frame: number, narration: boolean) {
       }),
     );
   }
-  return (base - duck * 0.58) * fadeOut;
+  // About -14 dB under the voice, so the narration sits ~10 dB above the music.
+  return (base - duck * 0.68) * fadeOut;
 }
 
 export const Reel26: React.FC<Reel26Props> = ({ narration }) => {

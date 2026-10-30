@@ -10,6 +10,8 @@ for the burned-in captions).
 import asyncio
 import json
 import os
+import subprocess
+import sys
 
 import edge_tts
 
@@ -45,3 +47,6 @@ async def main():
 
 
 asyncio.run(main())
+
+# Level the lines so the voice sits clearly above the music.
+subprocess.run([sys.executable, os.path.join(os.path.dirname(__file__), "reel26-vo-master.py")], check=True)
