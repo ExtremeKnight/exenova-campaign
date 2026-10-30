@@ -9,7 +9,9 @@ import {
 } from "remotion";
 import { C, F } from "../brand";
 import { prog, useLayout } from "../fx";
-import { ABOVE_CAPTIONS } from "./timeline";
+import { ABOVE_CAPTIONS, isTall } from "./timeline";
+
+const SUBTITLED = new Set(["k-red", "k-talk", "k-face"]);
 
 /** A footage clip from public/reel/clips, filling the frame with a slow push-in. */
 export const Footage: React.FC<{
@@ -27,7 +29,15 @@ export const Footage: React.FC<{
         src={staticFile(`reel/clips/${clip}.mp4`)}
         muted
         startFrom={startFrom}
-        style={{ width: "100%", height: "100%", objectFit: "cover", scale: s }}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          // The CAIN clips have burned-in subtitles along the bottom: zoom in
+          // from the top so they fall outside the frame.
+          scale: SUBTITLED.has(clip) ? s * 1.3 : s,
+          transformOrigin: SUBTITLED.has(clip) ? "50% 18%" : "50% 50%",
+        }}
       />
       <AbsoluteFill
         style={{
@@ -89,7 +99,7 @@ export const WorkLabel: React.FC<{
   start?: number;
 }> = ({ kind, title, by, color = C.accent, start = 6 }) => {
   const frame = useCurrentFrame();
-  const { u, portrait } = useLayout();
+  const { u, portrait, width, height } = useLayout();
   const p = prog(frame, start, 14);
   const q = prog(frame, start + 6, 14);
   return (
@@ -98,7 +108,10 @@ export const WorkLabel: React.FC<{
         position: "absolute",
         left: (portrait ? 70 : 90) * u,
         right: (portrait ? 70 : 90) * u,
-        bottom: (portrait ? ABOVE_CAPTIONS.portrait : ABOVE_CAPTIONS.other) * u,
+        bottom:
+          (isTall(width, height)
+            ? ABOVE_CAPTIONS.portrait
+            : ABOVE_CAPTIONS.other) * u,
         display: "flex",
         flexDirection: "column",
         gap: 10 * u,

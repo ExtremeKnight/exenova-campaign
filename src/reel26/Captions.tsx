@@ -2,7 +2,7 @@ import React from "react";
 import { useCurrentFrame } from "remotion";
 import { C, F } from "../brand";
 import { useLayout } from "../fx";
-import { CAPTION_BAND, FPS } from "./timeline";
+import { CAPTION_BAND, FPS, isTall } from "./timeline";
 import { VOICE } from "./voice";
 
 /**
@@ -12,11 +12,19 @@ import { VOICE } from "./voice";
  */
 export const Captions: React.FC = () => {
   const frame = useCurrentFrame();
-  const { u, portrait } = useLayout();
+  const { u, portrait, width, height } = useLayout();
   const t = frame / FPS;
   const line = VOICE.find((l) => t >= l.at - 0.1 && t <= l.at + l.dur + 0.35);
   if (!line) return null;
   const local = t - line.at;
+  // Show the line in short chunks (social-caption style), the chunk being spoken.
+  const CHUNK = 6;
+  const current = Math.max(
+    0,
+    line.words.filter((w) => local >= w.t).length - 1,
+  );
+  const start = Math.floor(current / CHUNK) * CHUNK;
+  const words = line.words.slice(start, start + CHUNK);
   const fadeIn = Math.min(1, (t - (line.at - 0.1)) / 0.15);
   const fadeOut = Math.min(1, (line.at + line.dur + 0.35 - t) / 0.2);
   return (
@@ -25,7 +33,9 @@ export const Captions: React.FC = () => {
         position: "absolute",
         left: 60 * u,
         right: 60 * u,
-        bottom: (portrait ? CAPTION_BAND.portrait : CAPTION_BAND.other) * u,
+        bottom:
+          (isTall(width, height) ? CAPTION_BAND.portrait : CAPTION_BAND.other) *
+          u,
         display: "flex",
         justifyContent: "center",
       }}
@@ -42,19 +52,21 @@ export const Captions: React.FC = () => {
           fontSize: (portrait ? 46 : 40) * u,
           lineHeight: 1.2,
           letterSpacing: "-0.01em",
-          textAlign: "center",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          columnGap: "0.28em",
           color: `${C.ink}99`,
           opacity: Math.max(0, Math.min(fadeIn, fadeOut)),
         }}
       >
-        {line.words.map((w, i) => {
+        {words.map((w, i) => {
           const spoken = local >= w.t;
           return (
             <span
               key={i}
               style={{
                 color: spoken ? C.ink : undefined,
-                marginRight: "0.28em",
               }}
             >
               {w.w}

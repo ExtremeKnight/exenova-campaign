@@ -10,7 +10,7 @@ import {
 } from "remotion";
 import { C, F, MEMBERS } from "../brand";
 import { Backdrop, Eyebrow, Grain, SplitText, useLayout } from "../fx";
-import { ABOVE_CAPTIONS, BEAT, SECTIONS } from "./timeline";
+import { ABOVE_CAPTIONS, BEAT, SECTIONS, isTall } from "./timeline";
 import { wordFrame } from "./voice";
 
 // Each portrait pops in as the narrator says the name (same timing in the
@@ -35,7 +35,8 @@ export const Team: React.FC = () => {
   const availH =
     height -
     areaTop -
-    (portrait ? ABOVE_CAPTIONS.portrait : ABOVE_CAPTIONS.other) * u;
+    (isTall(width, height) ? ABOVE_CAPTIONS.portrait : ABOVE_CAPTIONS.other) *
+      u;
   const cardH = Math.min(
     ((width - (portrait ? 120 : 160) * u - gap * (cols - 1)) / cols) * ratio,
     (availH - gap * (rows - 1)) / rows,
@@ -114,7 +115,7 @@ export const Team: React.FC = () => {
                 style={{
                   position: "absolute",
                   left: "8%",
-                  bottom: cardH * 0.2,
+                  bottom: cardH * 0.24,
                   width: "84%",
                   objectFit: "contain",
                 }}
@@ -132,7 +133,7 @@ export const Team: React.FC = () => {
                 <div
                   style={{
                     fontFamily: F.mono,
-                    fontSize: 18 * u,
+                    fontSize: cardW * 0.055,
                     letterSpacing: "0.18em",
                     color: m.color,
                   }}
@@ -143,7 +144,7 @@ export const Team: React.FC = () => {
                   style={{
                     fontFamily: F.display,
                     fontWeight: 700,
-                    fontSize: (landscape ? 34 : 38) * u,
+                    fontSize: cardW * 0.1,
                     lineHeight: 1.05,
                     color: C.ink,
                   }}
@@ -153,7 +154,7 @@ export const Team: React.FC = () => {
                 <div
                   style={{
                     fontFamily: F.body,
-                    fontSize: 20 * u,
+                    fontSize: cardW * 0.058,
                     color: `${C.ink}b0`,
                     marginTop: 4 * u,
                   }}

@@ -18,7 +18,7 @@ const EACH = 3 * BEAT; // 1.5 s per service
 const CLIP: Record<ServiceKey, string> = {
   brand: "b-mug",
   web: "q-laptop",
-  film: "k-talk",
+  film: "k-face",
   interactive: "q-arch",
   uiux: "q-glasses",
 };
@@ -89,7 +89,7 @@ const ServicePanel: React.FC<{ i: number }> = ({ i }) => {
           text={s.title}
           size={(portrait ? 104 : 112) * u}
           start={0}
-          stagger={1}
+          stagger={0.4}
         />
         <div
           style={{
@@ -176,7 +176,7 @@ const OneTeam: React.FC = () => {
           text="One point of contact."
           size={(portrait ? 84 : 92) * u}
           start={14}
-          stagger={1}
+          stagger={0.5}
           color={C.accent}
           style={{ justifyContent: "center", textAlign: "center" }}
         />

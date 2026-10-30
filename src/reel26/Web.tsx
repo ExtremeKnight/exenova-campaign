@@ -10,7 +10,7 @@ import {
 } from "remotion";
 import { C, F, SITE } from "../brand";
 import { Backdrop, Eyebrow, Grain, SplitText, prog, useLayout } from "../fx";
-import { ABOVE_CAPTIONS, SECTIONS } from "./timeline";
+import { ABOVE_CAPTIONS, SECTIONS, isTall } from "./timeline";
 import { wordFrame } from "./voice";
 
 const at = (lineId: string, word: string) =>
@@ -295,7 +295,7 @@ export const Web: React.FC = () => {
           left: 0,
           right: 0,
           bottom:
-            (portrait
+            (isTall(width, height)
               ? ABOVE_CAPTIONS.portrait - 60
               : ABOVE_CAPTIONS.other - 70) * u,
           textAlign: "center",

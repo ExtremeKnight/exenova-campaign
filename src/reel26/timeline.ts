@@ -21,4 +21,7 @@ export const SECTIONS = {
 export const CAPTION_BAND = { portrait: 300, other: 46 } as const;
 export const ABOVE_CAPTIONS = { portrait: 440, other: 170 } as const;
 
+/** 9:16 phones: the TikTok/Reels buttons cover the bottom, so keep more room there. */
+export const isTall = (width: number, height: number) => height / width > 1.6;
+
 export const REEL26_FRAMES = SECTIONS.outro.from + SECTIONS.outro.dur; // 1860 = 62 s
