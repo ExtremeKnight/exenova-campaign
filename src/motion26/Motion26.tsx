@@ -40,7 +40,7 @@ function soundEffects(): { at: number; src: string; volume: number }[] {
   const c = M.crafts.from;
   for (let k = 0; k < 5; k++) add(c + k * BAR - 2, reel("swipe"), 0.32);
   for (let i = 0; i < 3; i++) add(c + i * BEAT, reel("pop"), 0.26); // brand pieces
-  add(c + 3 * BEAT, own("click"), 0.4); // ...lock together
+  add(c + 3 * BEAT, own("click"), 0.26); // ...lock together
   for (const f of [BEAT, 2 * BEAT, 3 * BEAT]) add(c + BAR + f, reel("pop"), 0.22); // web blocks
   add(c + 2 * BAR + 2 * BEAT, reel("shutter"), 0.35); // film: play
   for (let k = 0; k < 4; k++) add(c + 3 * BAR + k * BEAT + 7, own("blip"), 0.18); // game hops
@@ -54,7 +54,7 @@ function soundEffects(): { at: number; src: string; volume: number }[] {
 
   // Outro: the hit, shimmer, the URL
   const o = M.outro.from;
-  add(o + HIT, reel("impact"), 0.32);
+  add(o + HIT, reel("impact"), 0.14); // the song carries the boom
   add(o + HIT + 2, reel("shimmer"), 0.42);
   add(o + HIT + 2 * BAR, own("click"), 0.4);
   return out;
