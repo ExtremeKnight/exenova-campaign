@@ -1,11 +1,13 @@
-"""Voices the showreel narration with a Microsoft neural voice (edge-tts).
+"""Voices a video's narration with a Microsoft neural voice (edge-tts).
 
-Reads src/reel26/narration.json, writes public/reel/audio/vo/<id>.mp3 and
-src/reel26/narration-timing.json (each line's length and word timings, used
-for the burned-in captions).
+Reads src/<folder>/narration.json, writes <vo folder>/<id>.mp3 (the "vo" key
+in the JSON, default public/reel/audio/vo) and src/<folder>/narration-timing.json
+(each line's length and word timings, used for the burned-in captions).
 
     pip install edge-tts
-    python scripts/reel26-voice.py
+    python scripts/reel26-voice.py              # src/reel26 (Showreel 2026)
+    python scripts/reel26-voice.py showreel     # the original showreel
+    python scripts/reel26-voice.py motion26     # the motion-graphics reel
 """
 import asyncio
 import json
@@ -16,9 +18,11 @@ import sys
 import edge_tts
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
-SCRIPT = os.path.join(ROOT, "src", "reel26", "narration.json")
-VO = os.path.join(ROOT, "public", "reel", "audio", "vo")
-TIMING = os.path.join(ROOT, "src", "reel26", "narration-timing.json")
+FOLDER = sys.argv[1] if len(sys.argv) > 1 else "reel26"
+SCRIPT = os.path.join(ROOT, "src", FOLDER, "narration.json")
+VO_REL = json.load(open(SCRIPT, encoding="utf8")).get("vo", "reel/audio/vo")
+VO = os.path.join(ROOT, "public", *VO_REL.split("/"))
+TIMING = os.path.join(ROOT, "src", FOLDER, "narration-timing.json")
 
 
 async def voice(line, cfg):
@@ -41,7 +45,7 @@ async def main():
     out = [await voice(line, cfg) for line in cfg["lines"]]
     json.dump({"voice": cfg["voice"], "lines": out}, open(TIMING, "w", encoding="utf8"), indent=1)
     for i, l in enumerate(out):
-        nxt = out[i + 1]["at"] if i + 1 < len(out) else 60
+        nxt = out[i + 1]["at"] if i + 1 < len(out) else cfg.get("end", 60)
         gap = nxt - (l["at"] + l["dur"])
         print(f"{l['id']} {l['at']:5.1f}s + {l['dur']:4.2f}s -> ends {l['at'] + l['dur']:5.2f}s (gap {gap:+.2f}s)  {l['text'][:50]}")
 
@@ -49,4 +53,4 @@ async def main():
 asyncio.run(main())
 
 # Level the lines so the voice sits clearly above the music.
-subprocess.run([sys.executable, os.path.join(os.path.dirname(__file__), "reel26-vo-master.py")], check=True)
+subprocess.run([sys.executable, os.path.join(os.path.dirname(__file__), "reel26-vo-master.py"), VO_REL], check=True)

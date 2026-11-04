@@ -4,9 +4,12 @@ Motion graphics, ads and posters for TikTok, Instagram and Facebook, built in co
 
 | Output | Formats | Compositions |
 |---|---|---|
-| Showreel (≈39 s) | 9:16 · 4:5 · 16:9 | `Showreel-9x16`, `Showreel-4x5`, `Showreel-16x9` |
+| Showreel (40.5 s) — music + SFX | 9:16 · 4:5 · 16:9 | `Showreel-9x16`, `Showreel-4x5`, `Showreel-16x9` |
+| Showreel — narrated, captioned | 9:16 · 4:5 · 16:9 | `Showreel-Narrated-9x16`, `Showreel-Narrated-4x5`, `Showreel-Narrated-16x9` |
 | Showreel 2026 (62 s) — music + SFX | 16:9 · 9:16 · 4:5 | `Reel26-16x9`, `Reel26-9x16`, `Reel26-4x5` |
 | Showreel 2026 — narrated, captioned | 16:9 · 9:16 · 4:5 | `Reel26-Narrated-16x9`, `Reel26-Narrated-9x16`, `Reel26-Narrated-4x5` |
+| In Motion (42 s) — motion graphics, music + SFX | 16:9 · 9:16 · 4:5 | `Motion26-16x9`, `Motion26-9x16`, `Motion26-4x5` |
+| In Motion — narrated, captioned | 16:9 · 9:16 · 4:5 | `Motion26-Narrated-16x9`, `Motion26-Narrated-9x16`, `Motion26-Narrated-4x5` |
 | Ads (15 s) | 9:16 | `Ad-brand`, `Ad-web`, `Ad-film`, `Ad-interactive`, `Ad-uiux`, `Ad-join` |
 | Posters | 4:5 feed · 9:16 story | `Poster-*`, `Process-0..5` (carousel), `Quote-*`, `Tip-*`, `Countdown-*` |
 
@@ -29,6 +32,21 @@ A separate reel from the original Showreel, built from the team's real work: cli
 - **Soundtrack:** original, synthesised in code — 120 BPM, A minor, 62 s, so every cut lands on a beat (one bar = 60 frames). Rebuild with `python scripts/reel26-audio.py && node scripts/reel26-encode.mjs` (needs numpy + scipy).
 - **Sound effects:** whoosh, swipe, impact, riser, glitch, tick, shutter, shimmer, pop — synthesised by the same script, placed in `src/reel26/Reel26.tsx`.
 - **Narration:** script in `src/reel26/narration.json`, voiced with Microsoft's neural `en-US-AndrewNeural` via `edge-tts`: `python scripts/reel26-voice.py`. It also writes word timings (`narration-timing.json`) that drive the captions, the feature chips and the team portraits, so re-voicing keeps everything in sync. The song ducks under the voice.
+
+## The original showreel, finished
+
+The original reel (`src/Showreel.tsx`, scenes in `src/scenes/`) now has its own score and a narrated cut. Four scenes were lengthened by 5–10 frames so every cut lands on a beat of the 120 BPM track.
+
+- **Soundtrack:** synthwave, E minor, timed to the cuts and the Kinetic words: `python scripts/score.py showreel`.
+- **Sound effects:** the Showreel 2026 set, keyed to what appears in each scene (`soundEffects` in `src/Showreel.tsx`).
+- **Narration:** `src/showreel/narration.json`, voiced with `python scripts/reel26-voice.py showreel`.
+
+## In Motion
+
+A motion-graphics reel with no footage: a single point bounces in on the beat, becomes the three brand shapes, then "Ideas in motion", one bar per craft, idea-to-launch, and a logo hit. Scenes are in `src/motion26/`, timing in `src/motion26/timeline.ts`.
+
+- **Soundtrack:** playful future-bass, D minor, with a mallet motif: `python scripts/score.py motion26` (also writes its extra sound effects: blip, drop, boing, slam, click).
+- **Narration:** `src/motion26/narration.json`, voiced with `python scripts/reel26-voice.py motion26`.
 
 ## Rendering
 

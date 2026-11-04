@@ -1,0 +1,20 @@
+{
+  "voice": "en-US-AndrewNeural",
+  "rate": "-4%",
+  "vo": "motion26/audio/vo",
+  "end": 42,
+  "lines": [
+    { "id": "01", "at": 0.6, "text": "Every project starts as a single point." },
+    { "id": "02", "at": 4.3, "text": "Give it a push, and it finds its shape." },
+    { "id": "03", "at": 8.1, "text": "Ideas, in motion." },
+    { "id": "04", "at": 12.2, "text": "We're Exenova, a creative studio." },
+    { "id": "05", "at": 16.2, "text": "Brand identity." },
+    { "id": "06", "at": 18.2, "text": "Websites." },
+    { "id": "07", "at": 20.2, "text": "Film and video." },
+    { "id": "08", "at": 22.2, "text": "Games and interactive." },
+    { "id": "09", "at": 24.2, "text": "Interfaces people love." },
+    { "id": "10", "at": 26.4, "text": "From the first sketch, all the way to launch day." },
+    { "id": "11", "at": 34.3, "text": "Design meets code meets story." },
+    { "id": "12", "at": 37.4, "text": "Let's put your idea in motion." }
+  ]
+}

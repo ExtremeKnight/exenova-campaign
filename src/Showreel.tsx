@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, useVideoConfig } from "remotion";
+import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useVideoConfig } from "remotion";
 import { TransitionSeries, linearTiming, springTiming } from "@remotion/transitions";
 import { slide } from "@remotion/transitions/slide";
 import { wipe } from "@remotion/transitions/wipe";
@@ -8,7 +8,6 @@ import { iris } from "@remotion/transitions/iris";
 import { clockWipe } from "@remotion/transitions/clock-wipe";
 import { pushCut } from "@remotion/transitions/push-cut";
 import { fade } from "@remotion/transitions/fade";
-import { whoosh, whip, ding } from "@remotion/sfx";
 import { BootScene } from "./scenes/BootScene";
 import { KineticScene } from "./scenes/KineticScene";
 import { ServicesScene } from "./scenes/ServicesScene";
@@ -19,20 +18,82 @@ import { TeamScene } from "./scenes/TeamScene";
 import { OutroScene } from "./scenes/OutroScene";
 import { Sfx } from "./fx";
 import { C } from "./brand";
+import { Captions } from "./reel26/Captions";
+import type { VoiceLine } from "./reel26/voice";
+import timing from "./showreel/narration-timing.json";
 
 export const T = 15; // transition length in frames
 
 // Scene lengths in frames. The composition length is their sum minus one
-// transition per cut (both scenes play during a transition).
-export const SHOWREEL_SCENES = [95, 150, 200, 240, 170, 160, 150, 120];
+// transition per cut (both scenes play during a transition). All are
+// multiples of 15 frames (one beat of the 120 BPM score in
+// scripts/score.py), so every cut lands on a beat: 3, 7.5, 14, 21.5, 27,
+// 32 and 36.5 s.
+export const SHOWREEL_SCENES = [105, 150, 210, 240, 180, 165, 150, 120];
 export const SHOWREEL_FRAMES = SHOWREEL_SCENES.reduce((a, b) => a + b, 0) - T * (SHOWREEL_SCENES.length - 1);
 
-export const Showreel: React.FC = () => {
+const VOICE: VoiceLine[] = timing.lines;
+const sfx = (name: string) => staticFile(`reel/audio/sfx/${name}.mp3`);
+
+export type ShowreelProps = { narration?: boolean };
+
+/** Every sound effect, by global frame, keyed to what appears in each scene. */
+function soundEffects(cuts: number[]): { at: number; name: string; volume: number }[] {
+  const out: { at: number; name: string; volume: number }[] = [];
+  const add = (at: number, name: string, volume: number) => out.push({ at: Math.round(at), name, volume });
+  const [kinetic, services, saas, work, shapes, team, outro] = cuts;
+  const into = ["glitch", "whoosh", "swipe", "whoosh", "whoosh", "whoosh", "whoosh"];
+  cuts.forEach((c, i) => add(c - 3, into[i], 0.3));
+
+  // Boot: a tick per terminal line, glitches on the logo
+  for (let i = 0; i < 6; i++) add(20 + i * 6, "tick", 0.25);
+  for (const f of [52, 66, 80]) add(f, "glitch", 0.25);
+  add(66, "pop", 0.3);
+  // Kinetic: a hit on every word
+  for (let i = 0; i < 5; i++) add(kinetic + i * 30, "impact", i === 4 ? 0.3 : 0.18);
+  // Services: the headline, then a swipe per card
+  add(services + 4, "tick", 0.3);
+  add(services + 16, "tick", 0.3);
+  for (let i = 0; i < 5; i++) add(services + 34 + i * 26, "swipe", 0.3);
+  // SaaS: clicks as the dashboard changes view
+  for (const f of [40, 92, 108, 160, 205]) add(saas + f, "pop", 0.26);
+  for (let i = 0; i < 5; i++) add(saas + 114 + i * 4, "tick", 0.15);
+  // Work: shutter on the stat pill
+  add(work + 40, "shutter", 0.35);
+  // Shapes: the cast lands, regroups into a grid, labels shimmer in
+  add(shapes + 80, "whoosh", 0.22);
+  add(shapes + 106, "shimmer", 0.3);
+  // Team: a pop per person, then the badge
+  for (let i = 0; i < 6; i++) add(team + 24 + i * 6, "pop", 0.24);
+  add(team + 60, "impact", 0.2);
+  // Outro: logo lands, then the button
+  add(outro + 2, "shimmer", 0.35);
+  add(outro + 34, "pop", 0.4);
+  return out;
+}
+
+/** Song level: full on its own, dipped under each narration line. */
+function songVolume(frame: number, narration: boolean) {
+  const base = 0.85;
+  const fadeOut = interpolate(frame, [SHOWREEL_FRAMES - 40, SHOWREEL_FRAMES], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  if (!narration) return base * fadeOut;
+  let duck = 0;
+  for (const l of VOICE) {
+    const a = l.at * 30 - 5;
+    const b = (l.at + l.dur) * 30 + 8;
+    duck = Math.max(duck, interpolate(frame, [a - 6, a, b, b + 10], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
+  }
+  return (base - duck * 0.72) * fadeOut;
+}
+
+export const Showreel: React.FC<ShowreelProps> = ({ narration = false }) => {
   const { width, height } = useVideoConfig();
   const [boot, kinetic, services, saas, work, shapes, team, outro] = SHOWREEL_SCENES;
   // Frame where each transition starts, for the sound effects.
   const cuts = SHOWREEL_SCENES.slice(0, -1).map((_, i) => SHOWREEL_SCENES.slice(0, i + 1).reduce((a, b) => a + b, 0) - T * (i + 1));
-  const sounds = [whip, whoosh, whoosh, whip, whoosh, whoosh, whoosh];
 
   return (
     <AbsoluteFill style={{ backgroundColor: C.paperDeep }}>
@@ -69,10 +130,18 @@ export const Showreel: React.FC = () => {
           <OutroScene />
         </TransitionSeries.Sequence>
       </TransitionSeries>
-      {cuts.map((at, i) => (
-        <Sfx key={i} at={at} src={sounds[i]} volume={0.35} />
+      {narration && <Captions lines={VOICE} />}
+
+      <Audio src={staticFile("showreel/audio/song.mp3")} volume={(f) => songVolume(f, narration)} />
+      {narration &&
+        VOICE.map((l) => (
+          <Sequence key={l.id} from={Math.round(l.at * 30)} layout="none">
+            <Audio src={staticFile(`showreel/audio/vo/${l.id}.mp3`)} />
+          </Sequence>
+        ))}
+      {soundEffects(cuts).map((s, i) => (
+        <Sfx key={i} at={s.at} src={sfx(s.name)} volume={narration ? s.volume * 0.8 : s.volume} />
       ))}
-      <Sfx at={SHOWREEL_FRAMES - outro + 34} src={ding} volume={0.3} />
     </AbsoluteFill>
   );
 };

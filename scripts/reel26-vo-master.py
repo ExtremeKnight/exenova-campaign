@@ -4,6 +4,8 @@ Raw edge-tts lines come out quiet (about -22 dBFS RMS) and vary line to
 line. Each line gets a high-pass, gentle compression, a common loudness
 (-12.5 dBFS RMS) and a soft peak limit, then is written back as MP3.
 Run after scripts/reel26-voice.py (it calls this automatically).
+
+    python scripts/reel26-vo-master.py [vo folder under public/]   # default reel/audio/vo
 """
 import glob
 import os
@@ -15,7 +17,7 @@ import numpy as np
 from scipy.signal import butter, sosfilt
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
-VO = os.path.join(ROOT, "public", "reel", "audio", "vo")
+VO = os.path.join(ROOT, "public", *(sys.argv[1] if len(sys.argv) > 1 else "reel/audio/vo").split("/"))
 TARGET_RMS_DB = -12.5
 SR = 44100
 

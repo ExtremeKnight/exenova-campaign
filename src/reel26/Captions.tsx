@@ -3,18 +3,19 @@ import { useCurrentFrame } from "remotion";
 import { C, F } from "../brand";
 import { useLayout } from "../fx";
 import { CAPTION_BAND, FPS, isTall } from "./timeline";
-import { VOICE } from "./voice";
+import { VOICE, type VoiceLine } from "./voice";
 
 /**
  * Burned-in captions for the narrated cut (most social video plays muted).
  * Shows the current line with the spoken word highlighted, in the bottom band
  * that every scene keeps free (above the TikTok/Reels buttons on 9:16).
+ * Other videos pass their own `lines` (same timing format).
  */
-export const Captions: React.FC = () => {
+export const Captions: React.FC<{ lines?: VoiceLine[] }> = ({ lines = VOICE }) => {
   const frame = useCurrentFrame();
   const { u, portrait, width, height } = useLayout();
   const t = frame / FPS;
-  const line = VOICE.find((l) => t >= l.at - 0.1 && t <= l.at + l.dur + 0.35);
+  const line = lines.find((l) => t >= l.at - 0.1 && t <= l.at + l.dur + 0.35);
   if (!line) return null;
   const local = t - line.at;
   // Show the line in short chunks (social-caption style), the chunk being spoken.
