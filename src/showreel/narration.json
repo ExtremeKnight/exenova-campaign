@@ -1,0 +1,53 @@
+{
+  "voice": "en-US-AndrewNeural",
+  "rate": "-4%",
+  "vo": "showreel/audio/vo",
+  "end": 40.5,
+  "lines": [
+    {
+      "id": "01",
+      "at": 0.5,
+      "text": "This is Exenova."
+    },
+    {
+      "id": "02",
+      "at": 3.1,
+      "text": "Design, meets code, meets story."
+    },
+    {
+      "id": "03",
+      "at": 8.0,
+      "text": "One team, every craft: brand, web, film, interactive, and UI."
+    },
+    {
+      "id": "04",
+      "at": 14.6,
+      "text": "We even build our own platform, in-house."
+    },
+    {
+      "id": "05",
+      "at": 17.6,
+      "text": "Members, projects, and inquiries, all in one place."
+    },
+    {
+      "id": "06",
+      "at": 22.0,
+      "text": "Branding, music videos, web apps, games, and short films."
+    },
+    {
+      "id": "07",
+      "at": 27.6,
+      "text": "Every shape, every frame, made with intent."
+    },
+    {
+      "id": "08",
+      "at": 32.4,
+      "text": "Artists and developers, building together."
+    },
+    {
+      "id": "09",
+      "at": 36.9,
+      "text": "Book a project. Let's make yours."
+    }
+  ]
+}

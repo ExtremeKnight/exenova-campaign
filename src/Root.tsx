@@ -1,6 +1,8 @@
 import React from "react";
 import { Composition, Folder, Still } from "remotion";
 import { Showreel, SHOWREEL_FRAMES } from "./Showreel";
+import { Motion26 } from "./motion26/Motion26";
+import { MOTION26_FRAMES } from "./motion26/timeline";
 import { AdVideo, AD_FRAMES, joinAd, serviceAd } from "./Ads";
 import { MeetTheTeam, MEET_FRAMES } from "./MeetTheTeam";
 import { MemberSpotlight, SPOTLIGHT_FULL } from "./scenes/MemberSpotlight";
@@ -24,6 +26,8 @@ import { ShapesScene } from "./scenes/ShapesScene";
 import { TeamScene } from "./scenes/TeamScene";
 import { OutroScene } from "./scenes/OutroScene";
 import { C } from "./brand";
+import { Reel26 } from "./reel26/Reel26";
+import { REEL26_FRAMES } from "./reel26/timeline";
 
 const FPS = 30;
 
@@ -34,15 +38,37 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Showreel-9x16" component={Showreel} durationInFrames={SHOWREEL_FRAMES} fps={FPS} width={1080} height={1920} />
         <Composition id="Showreel-4x5" component={Showreel} durationInFrames={SHOWREEL_FRAMES} fps={FPS} width={1080} height={1350} />
         <Composition id="Showreel-16x9" component={Showreel} durationInFrames={SHOWREEL_FRAMES} fps={FPS} width={1920} height={1080} />
+        <Composition id="Showreel-Narrated-9x16" component={Showreel} durationInFrames={SHOWREEL_FRAMES} fps={FPS} width={1080} height={1920} defaultProps={{ narration: true }} />
+        <Composition id="Showreel-Narrated-4x5" component={Showreel} durationInFrames={SHOWREEL_FRAMES} fps={FPS} width={1080} height={1350} defaultProps={{ narration: true }} />
+        <Composition id="Showreel-Narrated-16x9" component={Showreel} durationInFrames={SHOWREEL_FRAMES} fps={FPS} width={1920} height={1080} defaultProps={{ narration: true }} />
+      </Folder>
+
+      {/* 2026 showreel: separate from the original above. Music + sound effects, and a narrated cut with captions. */}
+      <Folder name="Showreel-2026">
+        <Composition id="Reel26-16x9" component={Reel26} durationInFrames={REEL26_FRAMES} fps={FPS} width={1920} height={1080} defaultProps={{ narration: false }} />
+        <Composition id="Reel26-9x16" component={Reel26} durationInFrames={REEL26_FRAMES} fps={FPS} width={1080} height={1920} defaultProps={{ narration: false }} />
+        <Composition id="Reel26-4x5" component={Reel26} durationInFrames={REEL26_FRAMES} fps={FPS} width={1080} height={1350} defaultProps={{ narration: false }} />
+        <Composition id="Reel26-Narrated-16x9" component={Reel26} durationInFrames={REEL26_FRAMES} fps={FPS} width={1920} height={1080} defaultProps={{ narration: true }} />
+        <Composition id="Reel26-Narrated-9x16" component={Reel26} durationInFrames={REEL26_FRAMES} fps={FPS} width={1080} height={1920} defaultProps={{ narration: true }} />
+        <Composition id="Reel26-Narrated-4x5" component={Reel26} durationInFrames={REEL26_FRAMES} fps={FPS} width={1080} height={1350} defaultProps={{ narration: true }} />
+      </Folder>
+
+      <Folder name="In-Motion">
+        <Composition id="Motion26-16x9" component={Motion26} durationInFrames={MOTION26_FRAMES} fps={FPS} width={1920} height={1080} defaultProps={{ narration: false }} />
+        <Composition id="Motion26-9x16" component={Motion26} durationInFrames={MOTION26_FRAMES} fps={FPS} width={1080} height={1920} defaultProps={{ narration: false }} />
+        <Composition id="Motion26-4x5" component={Motion26} durationInFrames={MOTION26_FRAMES} fps={FPS} width={1080} height={1350} defaultProps={{ narration: false }} />
+        <Composition id="Motion26-Narrated-16x9" component={Motion26} durationInFrames={MOTION26_FRAMES} fps={FPS} width={1920} height={1080} defaultProps={{ narration: true }} />
+        <Composition id="Motion26-Narrated-9x16" component={Motion26} durationInFrames={MOTION26_FRAMES} fps={FPS} width={1080} height={1920} defaultProps={{ narration: true }} />
+        <Composition id="Motion26-Narrated-4x5" component={Motion26} durationInFrames={MOTION26_FRAMES} fps={FPS} width={1080} height={1350} defaultProps={{ narration: true }} />
       </Folder>
 
       <Folder name="Showreel-Scenes">
-        <Composition id="Scene-Boot" component={BootScene} durationInFrames={95} fps={FPS} width={1080} height={1920} />
+        <Composition id="Scene-Boot" component={BootScene} durationInFrames={105} fps={FPS} width={1080} height={1920} />
         <Composition id="Scene-Kinetic" component={KineticScene} durationInFrames={150} fps={FPS} width={1080} height={1920} />
-        <Composition id="Scene-Services" component={ServicesScene} durationInFrames={200} fps={FPS} width={1080} height={1920} />
+        <Composition id="Scene-Services" component={ServicesScene} durationInFrames={210} fps={FPS} width={1080} height={1920} />
         <Composition id="Scene-Saas" component={SaasScene} durationInFrames={240} fps={FPS} width={1080} height={1920} />
-        <Composition id="Scene-Work" component={WorkScene} durationInFrames={170} fps={FPS} width={1080} height={1920} />
-        <Composition id="Scene-Shapes" component={ShapesScene} durationInFrames={160} fps={FPS} width={1080} height={1920} />
+        <Composition id="Scene-Work" component={WorkScene} durationInFrames={180} fps={FPS} width={1080} height={1920} />
+        <Composition id="Scene-Shapes" component={ShapesScene} durationInFrames={165} fps={FPS} width={1080} height={1920} />
         <Composition id="Scene-Team" component={TeamScene} durationInFrames={150} fps={FPS} width={1080} height={1920} />
         <Composition id="Scene-Outro" component={OutroScene} durationInFrames={120} fps={FPS} width={1080} height={1920} defaultProps={{ cta: "Book a project", path: "" }} />
       </Folder>

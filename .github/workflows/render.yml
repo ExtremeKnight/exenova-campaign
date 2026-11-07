@@ -12,6 +12,10 @@ on:
         description: "Optional comma-separated composition ids"
         required: false
         default: ""
+      frames:
+        description: "Preview only: comma-separated frame numbers to render full size"
+        required: false
+        default: ""
 
 jobs:
   render:
@@ -33,6 +37,7 @@ jobs:
       - name: Render
         env:
           ONLY: ${{ inputs.only }}
+          FRAMES: ${{ inputs.frames }}
         run: node scripts/render.mjs ${{ inputs.mode }}
       - uses: actions/upload-artifact@v4
         with:
