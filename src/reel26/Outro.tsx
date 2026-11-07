@@ -28,12 +28,12 @@ const local = (lineId: string, word: string) =>
   wordFrame(lineId, word) - SECTIONS.outro.from;
 
 // "Design meets code meets story" lands word by word over a wall of the work,
-// the wall collapses into the logo on the 56 s hit, then the call to action.
+// the wall collapses into the logo on the 36 s hit, then the call to action.
 export const Outro: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { u, portrait, width, height } = useLayout();
-  const HIT = 4 * 30; // 56 s, the song's final impact
+  const HIT = 2 * 30; // 36 s, the song's final impact
   const words = [
     { w: "Design", at: local("09", "Design"), color: C.ink },
     { w: "meets code", at: local("09", "code"), color: C.accent },
@@ -201,7 +201,7 @@ export const Outro: React.FC = () => {
             <div style={{ maxWidth: 900 * u, textAlign: "center" }}>
               <TypeLine
                 text={SITE}
-                start={HIT + 26}
+                start={26}
                 cps={1.6}
                 size={(portrait ? 36 : 34) * u}
                 color={C.muted}

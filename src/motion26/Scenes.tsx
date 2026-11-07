@@ -3,7 +3,14 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } fr
 import { C, F, HANDLE, SERVICES, SITE } from "../brand";
 import { EASE_IN_OUT, Grain, prog } from "../fx";
 import { At, Shape, type ShapeKind, kickAt, useStage } from "./kit";
-import { BAR, BEAT, HIT } from "./timeline";
+import { BAR, BEAT, HIT, M } from "./timeline";
+import timing from "./narration-timing.json";
+
+/** Frame a word is spoken (nth match), relative to a scene's start. */
+const spoken = (lineId: string, nth: number, from: number) => {
+  const line = timing.lines.find((l) => l.id === lineId)!;
+  return Math.round((line.at + line.words[nth].t) * 30) - from;
+};
 
 const TRIO: { kind: ShapeKind; color: string }[] = [
   { kind: "circle", color: C.accent },
@@ -19,7 +26,7 @@ const Dark: React.FC<{ children: React.ReactNode; bg?: string }> = ({ children, 
 );
 
 // ---------------------------------------------------------------- 1. a single point
-/** A dot drops in and bounces on the beat, pulses, then is pushed into three shapes that orbit and collapse. */
+/** The opening line appears as a dot bounces in; it's pushed into three shapes that orbit and collapse into the next scene. */
 export const Open: React.FC = () => {
   const frame = useCurrentFrame();
   const { u, cx, cy, stageH, width } = useStage();
@@ -35,13 +42,12 @@ export const Open: React.FC = () => {
     y = -H * [0, 0.5, 0.25, 0.1][k] * 4 * p * (1 - p);
   }
   const land = [BEAT, 2 * BEAT, 3 * BEAT, BAR].reduce((m, at) => Math.max(m, kickAt(frame, at, 3)), 0);
-  const pulse = frame >= BAR && frame < 2 * BAR ? kickAt(frame, BAR + Math.floor((frame - BAR) / BEAT) * BEAT, 4) : 0;
 
-  // Bar 2: the push — the dot shoots right, a trail draws each shape in turn.
-  const push = prog(frame, 2 * BAR, 10);
-  const dotX = cx + interpolate(push, [0, 1], [0, width * 0.32]) * (1 - prog(frame, 2 * BAR + 10, 20, EASE_IN_OUT));
-  const collapse = prog(frame, 3 * BAR + 30, 28, EASE_IN_OUT);
-  const orbit = prog(frame, 2 * BAR + 40, 90, EASE_IN_OUT) * Math.PI * 1.5 + collapse * Math.PI;
+  // Bar 1: the push — the dot shoots right, a trail draws each shape in turn.
+  const push = prog(frame, BAR, 10);
+  const dotX = cx + interpolate(push, [0, 1], [0, width * 0.32]) * (1 - prog(frame, BAR + 10, 20, EASE_IN_OUT));
+  const collapse = prog(frame, 2 * BAR + 30, 28, EASE_IN_OUT);
+  const orbit = prog(frame, BAR + 30, 90, EASE_IN_OUT) * Math.PI * 1.5 + collapse * Math.PI;
   const spread = (portraitSpread(width, stageH) * u) * (1 - collapse);
   const shapeSize = 180 * u;
 
@@ -49,7 +55,7 @@ export const Open: React.FC = () => {
     <Dark>
       {/* ripples on each pulse */}
       {[0, 1, 2, 3].map((k) => {
-        const at = BAR + k * BEAT;
+        const at = (k + 1) * BEAT; // on each landing
         const t = frame - at;
         if (t < 0 || t > 40) return null;
         const s = 1 + t * 0.35;
@@ -61,7 +67,7 @@ export const Open: React.FC = () => {
       })}
 
       {TRIO.map((s, i) => {
-        const start = 2 * BAR + 6 + i * BEAT;
+        const start = BAR + 6 + i * BEAT;
         const draw = prog(frame, start, 14);
         const a = orbit + (i / 3) * Math.PI * 2 - Math.PI / 2;
         const x = cx + Math.cos(a) * spread;
@@ -82,14 +88,27 @@ export const Open: React.FC = () => {
             borderRadius: "50%",
             background: C.coral,
             boxShadow: `0 0 ${40 * u}px ${C.coral}aa`,
-            scale: `${1 + land * 0.45 + pulse * 0.4} ${1 - land * 0.35 + pulse * 0.4}`,
+            scale: `${1 + land * 0.45} ${1 - land * 0.35}`,
             translate: `0 ${land * 0.35 * r}px`,
           }}
         />
       </At>
+      {/* the hook, readable with the sound off, word by word as it's spoken */}
+      <At x={cx} y={cy + stageH * 0.26} style={{ width: width * 0.86, opacity: 1 - prog(frame, BAR + 2, 12) }}>
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", columnGap: "0.28em", textAlign: "center", fontFamily: F.display, fontWeight: 700, fontSize: (stageH > width ? 78 : 64) * u, lineHeight: 1.1, letterSpacing: "-0.03em", color: C.ink }}>
+          {["Every", "project", "starts", "as", "a", "single", "point."].map((w, k) => {
+            const p = prog(frame, spoken("01", k, 0) - 1, 6);
+            return (
+              <span key={w} style={{ opacity: p, translate: `0 ${(1 - p) * 14 * u}px`, color: k === 6 ? C.coral : undefined }}>
+                {w}
+              </span>
+            );
+          })}
+        </div>
+      </At>
       {/* faint floor line the dot bounces on */}
       <At x={cx} y={cy + r + 2 * u}>
-        <div style={{ width: 380 * u * (1 - prog(frame, 2 * BAR, 20)), height: 2 * u, background: C.line, opacity: 0.8 }} />
+        <div style={{ width: 380 * u * (1 - prog(frame, BAR, 20)), height: 2 * u, background: C.line, opacity: 0.8 }} />
       </At>
     </Dark>
   );
@@ -98,10 +117,12 @@ export const Open: React.FC = () => {
 const portraitSpread = (width: number, stageH: number) => (stageH > width ? 250 : 300);
 
 // ---------------------------------------------------------------- 2. ideas in motion
+// Each word slams in as it's spoken.
+export const TYPE_AT = [0, 1, 2].map((k) => spoken("03", k, M.type.from));
 const WORDS = [
-  { text: "IDEAS", at: 0, color: C.ink },
-  { text: "IN", at: BEAT, color: C.coral },
-  { text: "MOTION", at: 2 * BEAT, color: C.accent },
+  { text: "IDEAS", at: TYPE_AT[0], color: C.ink },
+  { text: "IN", at: TYPE_AT[1], color: C.coral },
+  { text: "MOTION", at: TYPE_AT[2], color: C.accent },
 ];
 
 export const Type: React.FC = () => {

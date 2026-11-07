@@ -1,36 +1,67 @@
 {
   "voice": "en-US-AndrewNeural",
-  "rate": "-4%",
+  "rate": "-2%",
+  "end": 40,
   "lines": [
-    { "id": "01", "at": 0.6, "text": "Every idea deserves to be seen." },
+    {
+      "id": "01",
+      "at": 0.15,
+      "text": "Every idea deserves to be seen."
+    },
     {
       "id": "02",
-      "at": 3.2,
-      "text": "We're Exenova — designers, developers and filmmakers, under one roof."
+      "at": 3.0,
+      "text": "We're Exenova. Design, code and film."
     },
-    { "id": "03", "at": 9.0, "text": "We shoot it. We draw it. We design it." },
+    {
+      "id": "03",
+      "at": 6.1,
+      "text": "We shoot it."
+    },
+    {
+      "id": "03b",
+      "at": 8.1,
+      "text": "We draw it."
+    },
+    {
+      "id": "03c",
+      "at": 10.1,
+      "text": "We design it."
+    },
     {
       "id": "04",
-      "at": 14.8,
-      "text": "From exhibits and music videos, to short films and full brand identities."
+      "at": 11.9,
+      "text": "From exhibits and music videos, to short films and full brands."
     },
     {
       "id": "05",
-      "at": 24.4,
-      "text": "Brand and graphic design. Web development. Film and video. Interactive and games. UI and UX."
+      "at": 16.3,
+      "text": "Brand. Web. Film. Games. Interfaces."
     },
-    { "id": "06", "at": 32.4, "text": "One team. One point of contact." },
+    {
+      "id": "06",
+      "at": 21.0,
+      "text": "One team. One point of contact."
+    },
     {
       "id": "07",
-      "at": 36.6,
-      "text": "And we build the platforms too — fast, accessible, and easy to run."
+      "at": 24.0,
+      "text": "We build the platforms too: fast, accessible, easy to run."
     },
     {
       "id": "08",
-      "at": 44.6,
-      "text": "Meet the people behind the work: Shan, Justine, Rei, and Orlando."
+      "at": 28.5,
+      "text": "Meet the team: Shan, Justine, Rei, and Orlando."
     },
-    { "id": "09", "at": 52.4, "text": "Design meets code meets story." },
-    { "id": "10", "at": 55.6, "text": "Let's make yours." }
+    {
+      "id": "09",
+      "at": 34.1,
+      "text": "Design meets code meets story."
+    },
+    {
+      "id": "10",
+      "at": 36.4,
+      "text": "Let's make yours."
+    }
   ]
 }

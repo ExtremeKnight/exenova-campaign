@@ -102,15 +102,15 @@ def sections_at(sections):
 
 
 # ---------------------------------------------------------------- the original showreel
-# Cuts (beats): boot 0, kinetic 6, services 15, saas 28, work 43, shapes 54,
-# team 64, outro 73; the video ends at beat 81. E minor, synthwave.
-SHOWREEL = [(0, "boot"), (6, "kinetic"), (15, "services"), (28, "saas"), (43, "work"), (54, "shapes"), (64, "team"), (73, "outro"), (81, "tail")]
+# Cuts (beats): boot 0, kinetic 6, services 12, saas 25, work 40, shapes 51,
+# team 61, outro 70; the video ends at beat 78. E minor, synthwave.
+SHOWREEL = [(0, "boot"), (6, "kinetic"), (12, "services"), (25, "saas"), (40, "work"), (51, "shapes"), (61, "team"), (70, "outro"), (78, "tail")]
 SR_CHORDS = [["E3", "G3", "B3"], ["C3", "E3", "G3"], ["G3", "B3", "D4"], ["D3", "F#3", "A3"]]
 SR_ROOTS = ["E1", "C1", "G1", "D1"]
 
 
 def showreel_song():
-    total_beats = 87
+    total_beats = 84
     n = int(total_beats * BEAT * SR)
     drums, hats, bass, fx = np.zeros(n), np.zeros(n), np.zeros(n), np.zeros(n)
     pad, arp, lead, stabs = (np.zeros((n, 2)) for _ in range(4))
@@ -186,8 +186,8 @@ def showreel_song():
             place(pad[:, 0], np.roll(v, int(0.009 * SR)), t)
             place(pad[:, 1], v, t)
 
-        # kinetic: a big stab on every word (every other beat)
-        if sec == "kinetic" and lb % 2 == 0:
+        # kinetic: a big stab on each of the five words
+        if sec == "kinetic" and lb < 5:
             st = supersaw([x[:-1] + str(int(x[-1]) + 1) for x in chord], 0.42, 5000) * np.exp(-secs(0.42) * 6)
             place(stabs[:, 0], st, t, 0.5)
             place(stabs[:, 1], np.roll(st, 300), t, 0.5)
@@ -213,13 +213,13 @@ def showreel_song():
                 place(lead[:, 1], x, t + o * BEAT + 0.012, 0.11)
 
     # risers into the big cuts, booms on them
-    for into, length in ((6, 4), (15, 2), (43, 4), (64, 2), (73, 3)):
+    for into, length in ((6, 4), (12, 2), (40, 4), (61, 2), (70, 3)):
         place(fx, b.riser(length * BEAT), (into - length) * BEAT, 0.45)
-    for at_beat, g in ((6, 0.75), (15, 0.5), (28, 0.35), (43, 0.7), (54, 0.45), (64, 0.6), (73, 0.85)):
+    for at_beat, g in ((6, 0.75), (12, 0.5), (25, 0.35), (40, 0.7), (51, 0.45), (61, 0.6), (70, 0.85)):
         place(fx, b.boom(), at_beat * BEAT, g)
         place(hats, b.crash(), at_beat * BEAT, 0.9 if g > 0.5 else 0.5)
     for x in range(8):  # clap roll into the team
-        place(drums, CL, (62 + x / 4) * BEAT, 0.2 + x * 0.07)
+        place(drums, CL, (59 + x / 4) * BEAT, 0.2 + x * 0.07)
 
     duck = pump(kicks, n)
     pad *= duck[:, None]
@@ -234,9 +234,9 @@ def showreel_song():
 
 
 # ---------------------------------------------------------------- the motion-graphics reel
-# Bars of 4 beats: open 0–4, type 4–8, crafts 8–13, process 13–16, build 16,
-# logo hit on bar 17 (beat 68), hold and fade to bar 21. D minor, playful.
-MOTION = [(0, "open"), (16, "type"), (32, "crafts"), (52, "process"), (64, "build"), (68, "hit"), (76, "fade")]
+# Bars of 4 beats: open 0–3, type 3–7, crafts 7–12, process 12–15, build 15,
+# logo hit on bar 16 (beat 64), hold and fade to bar 20. D minor, playful.
+MOTION = [(0, "open"), (12, "type"), (28, "crafts"), (48, "process"), (60, "build"), (64, "hit"), (72, "fade")]
 MO_CHORDS = [["D3", "F3", "A3", "C4"], ["A#2", "D3", "F3", "A3"], ["F3", "A3", "C4", "E4"], ["C3", "E3", "G3", "D4"]]
 MO_ROOTS = ["D1", "A#0", "F1", "C1"]
 # The mallet motif, one bar of eighths (scale degrees of D minor pentatonic)
@@ -244,7 +244,7 @@ MOTIF = ["D5", "F5", "A5", "C6", "A5", "F5", "G5", "A5"]
 
 
 def motion_song():
-    total_beats = 90
+    total_beats = 86
     n = int(total_beats * BEAT * SR)
     drums, hats, bass, fx = np.zeros(n), np.zeros(n), np.zeros(n), np.zeros(n)
     pad, mallet, chords, lead = (np.zeros((n, 2)) for _ in range(4))
@@ -291,8 +291,8 @@ def motion_song():
         elif sec == "build":
             for x in range(4 if bb < 2 else 8):
                 place(drums, SN, t + x * BEAT / (4 if bb < 2 else 8), 0.2 + 0.12 * lb)
-        elif sec == "open" and beat >= 8:
-            place(hats, HC, t + BEAT / 2, 0.12 + 0.02 * (beat - 8))
+        elif sec == "open" and beat >= 4:
+            place(hats, HC, t + BEAT / 2, 0.12 + 0.02 * (beat - 4))
 
         # ---- bass
         if sec in ("type", "hit") and bb == 0:
@@ -346,7 +346,7 @@ def motion_song():
                     nm = MOTIF[(bb * 2 + e) % 8]
                     if ci == 1 and nm == "C6":
                         nm = "A#5"
-                    g = 0.16 if sec != "fade" else 0.12 * max(0.2, 1 - (beat - 76) / 14)
+                    g = 0.16 if sec != "fade" else 0.12 * max(0.2, 1 - (beat - 72) / 14)
                     x = marimba(note(nm), 0.6)
                     place(mallet[:, 0], x, t + e * BEAT / 2, g * (0.8 if e else 1))
                     place(mallet[:, 1], x, t + e * BEAT / 2 + 0.008, g * (1 if e else 0.8))
@@ -363,9 +363,9 @@ def motion_song():
                 place(lead[:, 0], x, t + o * BEAT, 0.1)
                 place(lead[:, 1], x, t + o * BEAT + 0.012, 0.1)
 
-    for into, length in ((16, 8), (32, 2), (68, 4)):
+    for into, length in ((12, 6), (28, 2), (64, 4)):
         place(fx, b.riser(length * BEAT), (into - length) * BEAT, 0.42)
-    for at_beat, g in ((16, 0.75), (32, 0.6), (52, 0.3), (68, 0.9)):
+    for at_beat, g in ((12, 0.75), (28, 0.6), (48, 0.3), (64, 0.9)):
         place(fx, b.boom(), at_beat * BEAT, g)
         place(hats, b.crash(), at_beat * BEAT, 0.9 if g > 0.5 else 0.4)
 

@@ -22,18 +22,32 @@ import { Captions } from "./reel26/Captions";
 import type { VoiceLine } from "./reel26/voice";
 import timing from "./showreel/narration-timing.json";
 
+const VOICE: VoiceLine[] = timing.lines;
+
 export const T = 15; // transition length in frames
 
 // Scene lengths in frames. The composition length is their sum minus one
 // transition per cut (both scenes play during a transition). All are
 // multiples of 15 frames (one beat of the 120 BPM score in
-// scripts/score.py), so every cut lands on a beat: 3, 7.5, 14, 21.5, 27,
-// 32 and 36.5 s.
-export const SHOWREEL_SCENES = [105, 150, 210, 240, 180, 165, 150, 120];
+// scripts/score.py), so every cut lands on a beat: 3, 6, 12.5, 20, 25.5,
+// 30.5 and 35 s.
+export const SHOWREEL_SCENES = [105, 105, 210, 240, 180, 165, 150, 120];
 export const SHOWREEL_FRAMES = SHOWREEL_SCENES.reduce((a, b) => a + b, 0) - T * (SHOWREEL_SCENES.length - 1);
 
-const VOICE: VoiceLine[] = timing.lines;
 const sfx = (name: string) => staticFile(`reel/audio/sfx/${name}.mp3`);
+
+// Frame a word is spoken, relative to its scene: what appears on screen follows
+// the narration in both cuts, so re-voicing keeps them in sync.
+const CUTS = SHOWREEL_SCENES.slice(0, -1).map((_, i) => SHOWREEL_SCENES.slice(0, i + 1).reduce((a, b) => a + b, 0) - T * (i + 1));
+const spoken = (lineId: string, word: string, sceneCut: number) => {
+  const line = VOICE.find((l) => l.id === lineId);
+  const w = line?.words.find((x) => x.w.toLowerCase().startsWith(word));
+  if (!line || !w) throw new Error(`No "${word}" in narration line ${lineId}`);
+  return Math.round((line.at + w.t) * 30) - sceneCut;
+};
+const WORD_AT = VOICE.find((l) => l.id === "02")!.words.map((w) => Math.round((VOICE.find((l) => l.id === "02")!.at + w.t) * 30) - CUTS[0]);
+const CARD_AT = ["brand", "web", "film", "games", "ui"].map((w) => spoken("03", w, CUTS[1]));
+const TAG_AT = ["branding", "music", "web", "games", "packaging", "short"].map((w) => spoken("06", w, CUTS[3]));
 
 export type ShowreelProps = { narration?: boolean };
 
@@ -50,16 +64,17 @@ function soundEffects(cuts: number[]): { at: number; name: string; volume: numbe
   for (const f of [52, 66, 80]) add(f, "glitch", 0.25);
   add(66, "pop", 0.3);
   // Kinetic: a hit on every word
-  for (let i = 0; i < 5; i++) add(kinetic + i * 30, "impact", i === 4 ? 0.3 : 0.18);
+  WORD_AT.forEach((at, i) => add(kinetic + at, i === 4 ? "impact" : "pop", i === 4 ? 0.3 : 0.24));
   // Services: the headline, then a swipe per card
   add(services + 4, "tick", 0.3);
   add(services + 16, "tick", 0.3);
-  for (let i = 0; i < 5; i++) add(services + 34 + i * 26, "swipe", 0.3);
+  CARD_AT.forEach((at) => add(services + at, "swipe", 0.3));
   // SaaS: clicks as the dashboard changes view
   for (const f of [40, 92, 108, 160, 205]) add(saas + f, "pop", 0.26);
   for (let i = 0; i < 5; i++) add(saas + 114 + i * 4, "tick", 0.15);
   // Work: shutter on the stat pill
   add(work + 40, "shutter", 0.35);
+  TAG_AT.forEach((at) => add(work + at, "tick", 0.22));
   // Shapes: the cast lands, regroups into a grid, labels shimmer in
   add(shapes + 80, "whoosh", 0.22);
   add(shapes + 106, "shimmer", 0.3);
@@ -103,11 +118,11 @@ export const Showreel: React.FC<ShowreelProps> = ({ narration = false }) => {
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={pushCut()} timing={linearTiming({ durationInFrames: T })} />
         <TransitionSeries.Sequence name="Kinetic type" durationInFrames={kinetic}>
-          <KineticScene />
+          <KineticScene wordAt={WORD_AT} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={wipe({ direction: "from-bottom-left" })} timing={linearTiming({ durationInFrames: T })} />
         <TransitionSeries.Sequence name="Services" durationInFrames={services}>
-          <ServicesScene />
+          <ServicesScene cardAt={CARD_AT} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={flip({ direction: "from-right" })} timing={springTiming({ config: { damping: 200 }, durationInFrames: T })} />
         <TransitionSeries.Sequence name="SaaS UI" durationInFrames={saas}>
@@ -115,7 +130,7 @@ export const Showreel: React.FC<ShowreelProps> = ({ narration = false }) => {
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={slide({ direction: "from-bottom" })} timing={springTiming({ config: { damping: 200 }, durationInFrames: T })} />
         <TransitionSeries.Sequence name="Work" durationInFrames={work}>
-          <WorkScene />
+          <WorkScene tagAt={TAG_AT} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={clockWipe({ width, height })} timing={linearTiming({ durationInFrames: T })} />
         <TransitionSeries.Sequence name="Shapes" durationInFrames={shapes}>

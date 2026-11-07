@@ -6,7 +6,7 @@ import { Captions } from "../reel26/Captions";
 import type { VoiceLine } from "../reel26/voice";
 import { Wipe } from "./kit";
 import timing from "./narration-timing.json";
-import { Crafts, Open, Outro, Process, Type } from "./Scenes";
+import { Crafts, Open, Outro, Process, TYPE_AT, Type } from "./Scenes";
 import { BAR, BEAT, FPS, HIT, M, MOTION26_FRAMES } from "./timeline";
 
 const VOICE: VoiceLine[] = timing.lines;
@@ -23,14 +23,13 @@ function soundEffects(): { at: number; src: string; volume: number }[] {
   // Open: the dot lands and bounces, pulses, gets pushed, draws the shapes, collapses
   add(BEAT - 2, own("drop"), 0.4);
   for (const k of [2, 3, 4]) add(k * BEAT - 1, own("boing"), 0.32 - k * 0.05);
-  for (let k = 0; k < 4; k++) add(BAR + k * BEAT, own("blip"), 0.22);
-  add(2 * BAR, reel("whoosh"), 0.32);
-  for (let i = 0; i < 3; i++) add(2 * BAR + 6 + i * BEAT, own("click"), 0.4);
-  add(3 * BAR + 30, reel("whoosh"), 0.26);
+  add(BAR, reel("whoosh"), 0.32);
+  for (let i = 0; i < 3; i++) add(BAR + 6 + i * BEAT, own("click"), 0.4);
+  add(2 * BAR + 30, reel("whoosh"), 0.26);
 
   // Type: a slam per word, a blip per letter of EXENOVA, a tick on the subtitle
   const t = M.type.from;
-  for (let i = 0; i < 3; i++) add(t + i * BEAT, own("slam"), 0.32);
+  for (const at of TYPE_AT) add(t + at, own("slam"), 0.32);
   add(t + 2 * BAR - 12, reel("whoosh"), 0.3);
   for (let k = 0; k < 7; k++) add(t + 2 * BAR + 6 + k * (BEAT / 2), own("blip"), 0.2);
   add(t + 2 * BAR + 6 + 4 * BEAT, reel("pop"), 0.35);

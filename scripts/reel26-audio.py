@@ -1,7 +1,7 @@
 """Builds the original soundtrack and sound effects for the 2026 showreel.
 
 Everything is synthesised here (no samples), so the audio is ours to use
-anywhere. 120 BPM, A minor: one bar = 2 s = 60 video frames at 30 fps, so
+anywhere. 120 BPM, A minor, 40 s: one bar = 2 s = 60 video frames at 30 fps, so
 cuts in src/reel26 land on beats.
 
     python scripts/reel26-audio.py      # writes public/reel/audio/*.wav
@@ -17,7 +17,7 @@ SR = 44100
 BPM = 120
 BEAT = 60 / BPM  # 0.5 s
 BAR = 4 * BEAT  # 2 s
-BARS = 30  # 60 s
+BARS = 20  # 40 s
 OUT = os.path.join(os.path.dirname(__file__), "..", "public", "reel", "audio")
 rng = np.random.default_rng(26)
 
@@ -202,17 +202,17 @@ def song():
     kick_times = []
 
     def section(bar):
-        if bar < 4:
+        if bar < 3:
             return "intro"
-        if bar < 12:
+        if bar < 8:
             return "dropA"
-        if bar < 18:
+        if bar < 12:
             return "services"
-        if bar < 22:
+        if bar < 14:
             return "break"
-        if bar < 26:
+        if bar < 17:
             return "team"
-        if bar < 28:
+        if bar < 18:
             return "outro"
         return "tail"
 
@@ -236,7 +236,7 @@ def song():
                     if x % 2:
                         place(hats, HC, t0 + x * BEAT / 4, 0.35)
             # a clap roll into the next section
-            if bar in (11, 17, 25):
+            if bar in (7, 11, 16):
                 for x in range(8):
                     place(drums, CL, t0 + 3 * BEAT + x * BEAT / 8, 0.25 + x * 0.08)
         elif s == "break":
@@ -246,9 +246,9 @@ def song():
             place(drums, CL, t0 + 2 * BEAT, 0.4)
             for e in range(4):
                 place(hats, HC, t0 + e * BEAT + BEAT / 2, 0.25)
-        elif s == "intro" and bar >= 2:
+        elif s == "intro" and bar >= 1:
             for e in range(8):
-                place(hats, HC, t0 + e * BEAT / 2, 0.15 + 0.05 * (bar - 2) + (0.1 if e % 2 else 0))
+                place(hats, HC, t0 + e * BEAT / 2, 0.15 + 0.05 * (bar - 1) + (0.1 if e % 2 else 0))
 
         # -- bass: offbeat eighths in drops, long notes in the break
         if s in ("dropA", "services", "team", "outro"):
@@ -306,9 +306,9 @@ def song():
                 place(lead[:, 1], tone, t0 + at * BEAT + 0.012, 0.12)
 
     # -- risers into the drops, impacts on the downbeats
-    for bar_into in (4, 12, 22, 26):
-        place(fx, riser(BAR * (2 if bar_into in (4, 22) else 1)), bar_into * BAR - BAR * (2 if bar_into in (4, 22) else 1), 0.5)
-    for bar_at in (4, 12, 22, 28):
+    for bar_into in (3, 8, 14, 18):
+        place(fx, riser(BAR * (2 if bar_into in (3, 14) else 1)), bar_into * BAR - BAR * (2 if bar_into in (3, 14) else 1), 0.5)
+    for bar_at in (3, 8, 14, 18):
         place(fx, boom(), bar_at * BAR, 0.7)
         place(hats, crash(), bar_at * BAR, 1.0)
 

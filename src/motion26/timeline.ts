@@ -7,14 +7,14 @@ export const BEAT = 15;
 export const BAR = 60;
 
 export const M = {
-  open: { from: 0, dur: 4 * BAR }, // 0–8 s: a point bounces in and finds its shapes
-  type: { from: 4 * BAR, dur: 4 * BAR }, // 8–16 s: "Ideas in motion", "Exenova"
-  crafts: { from: 8 * BAR, dur: 5 * BAR }, // 16–26 s: one bar per craft
-  process: { from: 13 * BAR, dur: 3 * BAR }, // 26–32 s: idea → launch
-  outro: { from: 16 * BAR, dur: 5 * BAR }, // 32–42 s: build, logo hit on bar 17 (34 s)
+  open: { from: 0, dur: 3 * BAR }, // 0–6 s: a point bounces in and finds its shapes
+  type: { from: 3 * BAR, dur: 4 * BAR }, // 6–14 s: "Ideas in motion", "Exenova"
+  crafts: { from: 7 * BAR, dur: 5 * BAR }, // 14–24 s: one bar per craft
+  process: { from: 12 * BAR, dur: 3 * BAR }, // 24–30 s: idea → launch
+  outro: { from: 15 * BAR, dur: 5 * BAR }, // 30–40 s: build, logo hit on bar 16 (32 s)
 } as const;
 
 /** Frame of the logo hit, local to the outro. */
 export const HIT = BAR;
 
-export const MOTION26_FRAMES = M.outro.from + M.outro.dur; // 1260 = 42 s
+export const MOTION26_FRAMES = M.outro.from + M.outro.dur; // 1200 = 40 s

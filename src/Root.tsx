@@ -64,7 +64,7 @@ export const RemotionRoot: React.FC = () => {
 
       <Folder name="Showreel-Scenes">
         <Composition id="Scene-Boot" component={BootScene} durationInFrames={105} fps={FPS} width={1080} height={1920} />
-        <Composition id="Scene-Kinetic" component={KineticScene} durationInFrames={150} fps={FPS} width={1080} height={1920} />
+        <Composition id="Scene-Kinetic" component={KineticScene} durationInFrames={105} fps={FPS} width={1080} height={1920} />
         <Composition id="Scene-Services" component={ServicesScene} durationInFrames={210} fps={FPS} width={1080} height={1920} />
         <Composition id="Scene-Saas" component={SaasScene} durationInFrames={240} fps={FPS} width={1080} height={1920} />
         <Composition id="Scene-Work" component={WorkScene} durationInFrames={180} fps={FPS} width={1080} height={1920} />

@@ -12,10 +12,10 @@ import { Captions } from "./Captions";
 import { Intro } from "./Intro";
 import { MONTAGE, Montage } from "./Montage";
 import { Outro } from "./Outro";
-import { Services } from "./Services";
+import { MERGE_AT, Services, panelStart } from "./Services";
 import { Team } from "./Team";
 import { Web } from "./Web";
-import { BAR, BEAT, FPS, REEL26_FRAMES, SECTIONS } from "./timeline";
+import { BAR, FPS, REEL26_FRAMES, SECTIONS } from "./timeline";
 import { VOICE, lineFrame, wordFrame } from "./voice";
 
 export type Reel26Props = { narration: boolean };
@@ -29,13 +29,13 @@ function soundEffects(): { at: number; name: string; volume: number }[] {
   const add = (at: number, name: string, volume: number) =>
     out.push({ at: Math.round(at), name, volume });
 
-  // Intro: a tick under each word of the opening line, glitches, shimmer on the logo
-  for (let i = 0; i < 5; i++) add(BEAT + i * BEAT, "tick", 0.35);
-  add(88, "glitch", 0.4);
-  add(100, "glitch", 0.3);
-  add(118, "whoosh", 0.3);
-  add(122, "shimmer", 0.35);
-  for (const f of [150, 196, 226]) add(f, "glitch", 0.22);
+  // Intro: a tick under each spoken word of the opening line, glitches, shimmer on the logo
+  for (const w of ["Every", "idea", "deserves", "to", "seen"]) add(wordFrame("01", w), "tick", 0.35);
+  add(66, "glitch", 0.4);
+  add(78, "glitch", 0.3);
+  add(94, "whoosh", 0.3);
+  add(100, "shimmer", 0.35);
+  for (const f of [128, 172]) add(f, "glitch", 0.22);
 
   // Montage: a whoosh into every shot, a swipe on second angles, a shutter on artwork
   MONTAGE.forEach((shot, i) => {
@@ -48,9 +48,8 @@ function soundEffects(): { at: number; name: string; volume: number }[] {
 
   // Services: swipe per panel, shimmer as the five marks merge
   add(SECTIONS.services.from - 4, "whoosh", 0.3);
-  for (let i = 0; i < 5; i++)
-    add(SECTIONS.services.from + 30 + i * 3 * BEAT, "swipe", 0.34);
-  add(SECTIONS.services.from + 30 + 15 * BEAT + 56, "shimmer", 0.3);
+  for (let i = 0; i < 5; i++) add(SECTIONS.services.from + panelStart(i), "swipe", 0.34);
+  add(SECTIONS.services.from + MERGE_AT + 56, "shimmer", 0.3);
 
   // Web: soft whoosh in, a pop for each feature chip as it's said
   add(SECTIONS.web.from - 4, "whoosh", 0.22);
@@ -65,8 +64,8 @@ function soundEffects(): { at: number; name: string; volume: number }[] {
   // Outro: ticks on the tagline, impact + shimmer on the logo hit
   for (const w of ["Design", "code", "story"])
     add(wordFrame("09", w), "tick", 0.32);
-  add(SECTIONS.outro.from + 4 * FPS, "impact", 0.3);
-  add(SECTIONS.outro.from + 4 * FPS + 2, "shimmer", 0.4);
+  add(SECTIONS.outro.from + 2 * FPS, "impact", 0.3);
+  add(SECTIONS.outro.from + 2 * FPS + 2, "shimmer", 0.4);
   return out;
 }
 

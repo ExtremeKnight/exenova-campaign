@@ -6,7 +6,7 @@ import { Backdrop, Counter, Grain, prog, useLayout } from "../fx";
 const TAGS = ["Branding", "Music videos", "Web apps", "Games", "Packaging", "Short films"];
 
 // Rows of project names scroll in opposite directions; a stat pill and tags pop on top.
-export const WorkScene: React.FC = () => {
+export const WorkScene: React.FC<{ tagAt?: number[] }> = ({ tagAt }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { u, portrait, width } = useLayout();
@@ -60,12 +60,12 @@ export const WorkScene: React.FC = () => {
             boxShadow: `0 0 ${80 * u}px ${C.accent}66`,
           }}
         >
-          <Counter to={12} start={44} dur={36} suffix="+" style={{ fontFamily: F.display, fontWeight: 700, fontSize: 110 * u, letterSpacing: "-0.04em" }} />
+          <Counter to={30} start={44} dur={36} suffix="+" style={{ fontFamily: F.display, fontWeight: 700, fontSize: 110 * u, letterSpacing: "-0.04em" }} />
           <span style={{ fontFamily: F.display, fontWeight: 500, fontSize: 46 * u }}>projects shipped</span>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 14 * u, maxWidth: 900 * u }}>
           {TAGS.map((t, i) => {
-            const p = spring({ frame: frame - 70 - i * 6, fps, config: { damping: 11 } });
+            const p = spring({ frame: frame - (tagAt?.[i] ?? 70 + i * 6), fps, config: { damping: 11 } });
             return (
               <span
                 key={t}
