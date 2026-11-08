@@ -8,12 +8,16 @@ import {
   useVideoConfig,
 } from "remotion";
 import { C, F, SERVICES, type ServiceKey } from "../brand";
-import { Backdrop, Eyebrow, Grain, SplitText, prog, useLayout } from "../fx";
+import { Backdrop, Grain, SplitText, prog, useLayout } from "../fx";
 import { ServiceGlyph } from "../glyphs";
 import { CutFlash, Footage } from "./parts";
-import { BEAT } from "./timeline";
+import { BEAT, SECTIONS } from "./timeline";
+import { VOICE, lineFrame, wordFrame } from "./voice";
 
-const HEAD = 30;
+// Each panel appears as its word is spoken; "One team" follows on its own line.
+export const SERVICE_WORDS = ["Brand", "Web", "Film", "Games", "Interfaces"];
+export const panelStart = (i: number) => (i === 0 ? 0 : wordFrame("05", SERVICE_WORDS[i]) - SECTIONS.services.from);
+export const MERGE_AT = lineFrame(VOICE.find((l) => l.id === "06")!) - SECTIONS.services.from - 4;
 const EACH = 3 * BEAT; // 1.5 s per service
 const CLIP: Record<ServiceKey, string> = {
   brand: "b-mug",
@@ -187,49 +191,19 @@ const OneTeam: React.FC = () => {
 };
 
 export const Services: React.FC = () => {
-  const frame = useCurrentFrame();
-  const { u, portrait } = useLayout();
   return (
     <AbsoluteFill>
-      <Sequence durationInFrames={HEAD} layout="none">
-        <AbsoluteFill>
-          <Backdrop tint={C.coral} dark />
-          <AbsoluteFill
-            style={{
-              justifyContent: "center",
-              padding: `0 ${(portrait ? 80 : 160) * u}px`,
-              gap: 24 * u,
-            }}
-          >
-            <Eyebrow color={C.coral}>What we make</Eyebrow>
-            <SplitText
-              text="Five crafts."
-              size={(portrait ? 140 : 150) * u}
-              start={2}
-              stagger={1}
-            />
-          </AbsoluteFill>
-          <AbsoluteFill
-            style={{
-              backgroundColor: "#fff",
-              opacity: interpolate(frame, [0, 4], [0.6, 0], {
-                extrapolateRight: "clamp",
-              }),
-            }}
-          />
-        </AbsoluteFill>
-      </Sequence>
       {SERVICES.map((s, i) => (
         <Sequence
           key={s.key}
-          from={HEAD + i * EACH}
-          durationInFrames={EACH}
+          from={panelStart(i)}
+          durationInFrames={(i + 1 < SERVICES.length ? panelStart(i + 1) : MERGE_AT) - panelStart(i)}
           layout="none"
         >
           <ServicePanel i={i} />
         </Sequence>
       ))}
-      <Sequence from={HEAD + SERVICES.length * EACH} layout="none">
+      <Sequence from={MERGE_AT} layout="none">
         <OneTeam />
       </Sequence>
       <Grain />

@@ -3,7 +3,8 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } fr
 import { C, F } from "../brand";
 import { Grain, useLayout } from "../fx";
 
-// One word every 30 frames; the background flips colour on each beat.
+// One word every 30 frames unless `wordAt` says when each is spoken; the
+// background flips colour on each word, and the last word holds.
 const WORDS: { text: string; bg: string; fg: string }[] = [
   { text: "DESIGN", bg: C.paper, fg: C.ink },
   { text: "MEETS", bg: C.accent, fg: C.paperDeep },
@@ -13,12 +14,12 @@ const WORDS: { text: string; bg: string; fg: string }[] = [
 ];
 const BEAT = 30;
 
-export const KineticScene: React.FC = () => {
+export const KineticScene: React.FC<{ wordAt?: number[] }> = ({ wordAt = WORDS.map((_, k) => k * BEAT) }) => {
   const frame = useCurrentFrame();
   const { fps, width } = useVideoConfig();
   const { u, portrait } = useLayout();
-  const i = Math.min(WORDS.length - 1, Math.floor(frame / BEAT));
-  const local = frame - i * BEAT;
+  const i = Math.max(0, wordAt.filter((at) => frame >= at).length - 1);
+  const local = frame - wordAt[i];
   const w = WORDS[i];
   const s = spring({ frame: local, fps, config: { damping: 12, stiffness: 180 } });
   // Fit the word to ~88% of the width (Space Grotesk caps ≈ 0.68em wide).

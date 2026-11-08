@@ -43,7 +43,7 @@ export const Team: React.FC = () => {
   );
   const cardW = cardH / ratio;
   const areaW = cardW * cols + gap * (cols - 1);
-  const glowBeat = Math.floor((frame - 170) / BEAT);
+  const glowBeat = Math.floor((frame - 130) / BEAT);
 
   return (
     <AbsoluteFill>

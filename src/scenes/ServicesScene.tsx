@@ -5,7 +5,7 @@ import { ServiceGlyph } from "../glyphs";
 import { Backdrop, Eyebrow, Grain, SplitText, prog, useLayout } from "../fx";
 
 // Heading 0–40, then a service card every 26 frames; cards fly in with a 3D swing.
-export const ServicesScene: React.FC = () => {
+export const ServicesScene: React.FC<{ cardAt?: number[] }> = ({ cardAt }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { u, portrait } = useLayout();
@@ -31,7 +31,7 @@ export const ServicesScene: React.FC = () => {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 18 * u, perspective: 1600 * u }}>
           {SERVICES.map((s, i) => {
-            const start = 34 + i * 26;
+            const start = cardAt?.[i] ?? 34 + i * 26;
             const sp = spring({ frame: frame - start, fps, config: { damping: 15, stiffness: 110 } });
             const glow = prog(frame, start + 8, 20);
             return (

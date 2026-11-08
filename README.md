@@ -4,11 +4,11 @@ Motion graphics, ads and posters for TikTok, Instagram and Facebook, built in co
 
 | Output | Formats | Compositions |
 |---|---|---|
-| Showreel (40.5 s) — music + SFX | 9:16 · 4:5 · 16:9 | `Showreel-9x16`, `Showreel-4x5`, `Showreel-16x9` |
+| Showreel (39 s) — music + SFX | 9:16 · 4:5 · 16:9 | `Showreel-9x16`, `Showreel-4x5`, `Showreel-16x9` |
 | Showreel — narrated, captioned | 9:16 · 4:5 · 16:9 | `Showreel-Narrated-9x16`, `Showreel-Narrated-4x5`, `Showreel-Narrated-16x9` |
-| Showreel 2026 (62 s) — music + SFX | 16:9 · 9:16 · 4:5 | `Reel26-16x9`, `Reel26-9x16`, `Reel26-4x5` |
+| Showreel 2026 (40 s) — music + SFX | 16:9 · 9:16 · 4:5 | `Reel26-16x9`, `Reel26-9x16`, `Reel26-4x5` |
 | Showreel 2026 — narrated, captioned | 16:9 · 9:16 · 4:5 | `Reel26-Narrated-16x9`, `Reel26-Narrated-9x16`, `Reel26-Narrated-4x5` |
-| In Motion (42 s) — motion graphics, music + SFX | 16:9 · 9:16 · 4:5 | `Motion26-16x9`, `Motion26-9x16`, `Motion26-4x5` |
+| In Motion (40 s) — motion graphics, music + SFX | 16:9 · 9:16 · 4:5 | `Motion26-16x9`, `Motion26-9x16`, `Motion26-4x5` |
 | In Motion — narrated, captioned | 16:9 · 9:16 · 4:5 | `Motion26-Narrated-16x9`, `Motion26-Narrated-9x16`, `Motion26-Narrated-4x5` |
 | Ads (15 s) | 9:16 | `Ad-brand`, `Ad-web`, `Ad-film`, `Ad-interactive`, `Ad-uiux`, `Ad-join` |
 | Posters | 4:5 feed · 9:16 story | `Poster-*`, `Process-0..5` (carousel), `Quote-*`, `Tip-*`, `Countdown-*` |
@@ -29,7 +29,7 @@ Preview everything interactively with `npm run dev` (Remotion Studio).
 
 A separate reel from the original Showreel, built from the team's real work: clips from the Quasar exhibit, Komorebi Films' *CAIN* and the BRWTL ad (`public/reel/clips`), illustrations and 3D stills, screens of the live site (`public/reel/site`) and the four members. Scenes live in `src/reel26/`; section timing is in `src/reel26/timeline.ts`.
 
-- **Soundtrack:** original, synthesised in code — 120 BPM, A minor, 62 s, so every cut lands on a beat (one bar = 60 frames). Rebuild with `python scripts/reel26-audio.py && node scripts/reel26-encode.mjs` (needs numpy + scipy).
+- **Soundtrack:** original, synthesised in code — 120 BPM, A minor, 40 s, so every cut lands on a beat (one bar = 60 frames). Rebuild with `python scripts/reel26-audio.py && node scripts/reel26-encode.mjs` (needs numpy + scipy).
 - **Sound effects:** whoosh, swipe, impact, riser, glitch, tick, shutter, shimmer, pop — synthesised by the same script, placed in `src/reel26/Reel26.tsx`.
 - **Narration:** script in `src/reel26/narration.json`, voiced with Microsoft's neural `en-US-AndrewNeural` via `edge-tts`: `python scripts/reel26-voice.py`. It also writes word timings (`narration-timing.json`) that drive the captions, the feature chips and the team portraits, so re-voicing keeps everything in sync. The song ducks under the voice.
 
@@ -43,9 +43,10 @@ The original reel (`src/Showreel.tsx`, scenes in `src/scenes/`) now has its own 
 
 ## In Motion
 
-A motion-graphics reel with no footage: a single point bounces in on the beat, becomes the three brand shapes, then "Ideas in motion", one bar per craft, idea-to-launch, and a logo hit. Scenes are in `src/motion26/`, timing in `src/motion26/timeline.ts`.
+A motion-graphics reel with no footage: the opening line appears as a single point bounces in on the beat, becomes the three brand shapes, then "Ideas in motion", one bar per craft, idea-to-launch, and a logo hit. Scenes are in `src/motion26/`, timing in `src/motion26/timeline.ts`.
 
-- **Soundtrack:** playful future-bass, D minor, with a mallet motif: `python scripts/score.py motion26` (also writes its extra sound effects: blip, drop, boing, slam, click).
+- **Soundtrack:** playful future-bass, D minor, with a mallet motif: `python scripts/score.py motion26`.
+- **Sound effects:** its own kit tuned to the song (D minor pentatonic), so pops and bells play little melodies: bouncing thuds, pen-drawn shapes, rising word stamps, an EXENOVA note run, chiptune hops, a toggle click, step bells, a rocket launch and a swell into the logo hit. Regenerate with `python scripts/score.py motion26-sfx` (leaves the song alone); placed in `soundEffects` in `src/motion26/Motion26.tsx`.
 - **Narration:** `src/motion26/narration.json`, voiced with `python scripts/reel26-voice.py motion26`.
 
 ## Rendering

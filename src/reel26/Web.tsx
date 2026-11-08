@@ -8,9 +8,9 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { C, F, SITE } from "../brand";
-import { Backdrop, Eyebrow, Grain, SplitText, prog, useLayout } from "../fx";
-import { ABOVE_CAPTIONS, SECTIONS, isTall } from "./timeline";
+import { C, F } from "../brand";
+import { Backdrop, Eyebrow, Grain, SplitText, useLayout } from "../fx";
+import { SECTIONS } from "./timeline";
 import { wordFrame } from "./voice";
 
 const at = (lineId: string, word: string) =>
@@ -73,7 +73,7 @@ export const Web: React.FC = () => {
   const lx = portrait
     ? (width - lw) / 2
     : landscape
-      ? width * 0.08
+      ? width * 0.03
       : (width - lw) / 2;
   const ly = portrait
     ? height * 0.36
@@ -98,7 +98,7 @@ export const Web: React.FC = () => {
       imgH: 5200,
       from: 0,
       to: 0.55,
-      start: 10,
+      start: 6,
       dur: 100,
     },
     {
@@ -283,31 +283,12 @@ export const Web: React.FC = () => {
             h={ph}
             from={0}
             to={0.7}
-            start={24}
-            dur={180}
+            start={10}
+            dur={100}
           />
         </div>
       </div>
 
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom:
-            (isTall(width, height)
-              ? ABOVE_CAPTIONS.portrait - 60
-              : ABOVE_CAPTIONS.other - 70) * u,
-          textAlign: "center",
-          fontFamily: F.mono,
-          fontSize: 28 * u,
-          letterSpacing: "0.12em",
-          color: C.muted,
-          opacity: prog(frame, 60, 16),
-        }}
-      >
-        {SITE}
-      </div>
       <Grain />
     </AbsoluteFill>
   );

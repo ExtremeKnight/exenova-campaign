@@ -10,23 +10,23 @@ import {
 import { C, F } from "../brand";
 import { Backdrop, Glitch, Grain, prog, useLayout } from "../fx";
 import { Footage } from "./parts";
-import { BEAT } from "./timeline";
+import { wordFrame } from "./voice";
 
 const WORDS = ["Every", "idea", "deserves", "to be", "seen."];
 const FLICKER = ["q-expo", "k-red", "q-laptop", "b-cafe", "q-stage", "k-face"];
 
-// 0–100: the opening line lands word by word on the beat.
-// 100–118: flashes of the work. 118–240: the logo assembles under the riser.
+// 0–78: the opening line lands word by word as it's spoken.
+// 78–96: flashes of the work. 96–180: the logo assembles under the riser.
 export const Intro: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { u, portrait } = useLayout();
-  const linesOut = interpolate(frame, [92, 102], [1, 0], {
+  const linesOut = interpolate(frame, [70, 80], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
   const logoSize = (portrait ? 200 : 250) * u;
-  const push = interpolate(frame, [150, 240], [1, 1.12], {
+  const push = interpolate(frame, [128, 180], [1, 1.12], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -43,9 +43,9 @@ export const Intro: React.FC = () => {
           opacity: linesOut,
         }}
       >
-        <Glitch at={[88]} strength={26}>
+        <Glitch at={[66]} strength={26}>
           {WORDS.map((w, i) => {
-            const at = BEAT + i * BEAT;
+            const at = wordFrame("01", w.split(" ")[0].replace(".", ""));
             const s = spring({
               frame: frame - at,
               fps,
@@ -77,7 +77,7 @@ export const Intro: React.FC = () => {
       {FLICKER.map((clip, i) => (
         <Sequence
           key={clip}
-          from={100 + i * 3}
+          from={78 + i * 3}
           durationInFrames={3}
           layout="none"
         >
@@ -92,9 +92,9 @@ export const Intro: React.FC = () => {
       ))}
 
       {/* Logo under the riser, with the crowd behind it */}
-      <Sequence from={118} layout="none">
+      <Sequence from={96} layout="none">
         <AbsoluteFill style={{ opacity: 0.22, filter: `blur(${8 * u}px)` }}>
-          <Footage clip="q-crowd" zoom={[1.25, 1.1]} dur={122} />
+          <Footage clip="q-crowd" zoom={[1.25, 1.1]} dur={84} />
         </AbsoluteFill>
         <AbsoluteFill
           style={{
@@ -104,7 +104,7 @@ export const Intro: React.FC = () => {
             scale: push,
           }}
         >
-          <Glitch at={[150 - 118, 196 - 118, 226 - 118]} strength={24}>
+          <Glitch at={[32, 76]} strength={24}>
             <div
               style={{
                 display: "flex",
@@ -118,7 +118,7 @@ export const Intro: React.FC = () => {
             >
               {[..."Exenova"].map((ch, i) => {
                 const s = spring({
-                  frame: frame - 122 - i * 3,
+                  frame: frame - 100 - i * 3,
                   fps,
                   config: { damping: 11, stiffness: 150 },
                 });
@@ -136,7 +136,7 @@ export const Intro: React.FC = () => {
                   </span>
                 );
               })}
-              <span style={{ color: C.coral, opacity: prog(frame, 146, 4) }}>
+              <span style={{ color: C.coral, opacity: prog(frame, 124, 4) }}>
                 .
               </span>
             </div>
@@ -145,7 +145,7 @@ export const Intro: React.FC = () => {
             style={{
               marginTop: 28 * u,
               height: 4 * u,
-              width: (portrait ? 560 : 680) * u * prog(frame, 150, 26),
+              width: (portrait ? 560 : 680) * u * prog(frame, 128, 26),
               background: `linear-gradient(90deg, ${C.accent}, ${C.coral})`,
             }}
           />
@@ -157,7 +157,7 @@ export const Intro: React.FC = () => {
               letterSpacing: "0.32em",
               color: C.accent,
               textAlign: "center",
-              opacity: prog(frame, 160, 14),
+              opacity: prog(frame, 138, 14),
               padding: `0 ${40 * u}px`,
             }}
           >
@@ -170,7 +170,7 @@ export const Intro: React.FC = () => {
               fontSize: 22 * u,
               letterSpacing: "0.4em",
               color: C.muted,
-              opacity: prog(frame, 176, 14),
+              opacity: prog(frame, 154, 14),
             }}
           >
             SHOWREEL 2026
@@ -182,7 +182,7 @@ export const Intro: React.FC = () => {
       <AbsoluteFill
         style={{
           backgroundColor: "#fff",
-          opacity: interpolate(frame, [228, 240], [0, 0.85], {
+          opacity: interpolate(frame, [170, 180], [0, 0.85], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
           }),

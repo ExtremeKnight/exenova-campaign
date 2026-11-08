@@ -54,21 +54,6 @@ export const MONTAGE: Shot[] = [
     punch: "We design it.",
   },
   {
-    kind: "Exhibit",
-    title: "Quasar 2026",
-    by: "Shan Patrick Cruz",
-    color: C.accent,
-    clip: "q-expo",
-    then: "q-smiles",
-  },
-  {
-    kind: "3D & motion",
-    title: "Memphis Playground",
-    by: "Justine Mojica",
-    color: C.coral,
-    still: "team/work/memphis-playground.webp",
-  },
-  {
     kind: "Ad film",
     title: "BRWTL",
     by: "Shan Patrick Cruz",
@@ -77,19 +62,12 @@ export const MONTAGE: Shot[] = [
     then: "b-mug",
   },
   {
-    kind: "Character design",
-    title: "Princess Novaria",
-    by: "Reinard Gabriel Saddi",
-    color: C.amber,
-    still: "team/work/princess-novaria.webp",
-  },
-  {
     kind: "Live & music",
     title: "Quasar Stage",
     by: "the Exenova team",
     color: C.moss,
-    clip: "q-stage",
-    then: "q-cheer",
+    clip: "q-cheer",
+    then: "q-smiles",
   },
 ];
 
