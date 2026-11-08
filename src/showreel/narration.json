@@ -1,5 +1,5 @@
 {
-  "voice": "en-US-AndrewNeural",
+  "voice": "en-US-AndrewMultilingualNeural",
   "rate": "-2%",
   "vo": "showreel/audio/vo",
   "end": 39,
@@ -12,6 +12,6 @@
     { "id": "06", "at": 20.1, "text": "Branding, music videos, web apps, games, packaging, and short films." },
     { "id": "07", "at": 25.8, "text": "Every shape, every frame, made with intent." },
     { "id": "08", "at": 30.7, "text": "Artists and developers, building together." },
-    { "id": "09", "at": 35.2, "text": "Book a project. Let's make yours." }
+    { "id": "09", "at": 35.2, "text": "Book a project, and let's make yours." }
   ]
 }

@@ -31,7 +31,7 @@ A separate reel from the original Showreel, built from the team's real work: cli
 
 - **Soundtrack:** original, synthesised in code — 120 BPM, A minor, 40 s, so every cut lands on a beat (one bar = 60 frames). Rebuild with `python scripts/reel26-audio.py && node scripts/reel26-encode.mjs` (needs numpy + scipy).
 - **Sound effects:** whoosh, swipe, impact, riser, glitch, tick, shutter, shimmer, pop — synthesised by the same script, placed in `src/reel26/Reel26.tsx`.
-- **Narration:** script in `src/reel26/narration.json`, voiced with Microsoft's neural `en-US-AndrewNeural` via `edge-tts`: `python scripts/reel26-voice.py`. It also writes word timings (`narration-timing.json`) that drive the captions, the feature chips and the team portraits, so re-voicing keeps everything in sync. The song ducks under the voice.
+- **Narration:** script in `src/reel26/narration.json`, voiced with Microsoft's neural `en-US-AndrewMultilingualNeural` via `edge-tts`: `python scripts/reel26-voice.py`. Each script is read in one continuous take and then cut into its lines, so the delivery flows like one person reading rather than separate sentences. It also writes word timings (`narration-timing.json`) that drive the captions, the feature chips and the team portraits, so re-voicing keeps everything in sync. The song ducks under the voice.
 
 ## The original showreel, finished
 

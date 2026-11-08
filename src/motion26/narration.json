@@ -1,5 +1,5 @@
 {
-  "voice": "en-US-AndrewNeural",
+  "voice": "en-US-AndrewMultilingualNeural",
   "rate": "-2%",
   "vo": "motion26/audio/vo",
   "end": 40,
