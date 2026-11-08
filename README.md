@@ -45,7 +45,8 @@ The original reel (`src/Showreel.tsx`, scenes in `src/scenes/`) now has its own 
 
 A motion-graphics reel with no footage: the opening line appears as a single point bounces in on the beat, becomes the three brand shapes, then "Ideas in motion", one bar per craft, idea-to-launch, and a logo hit. Scenes are in `src/motion26/`, timing in `src/motion26/timeline.ts`.
 
-- **Soundtrack:** playful future-bass, D minor, with a mallet motif: `python scripts/score.py motion26` (also writes its extra sound effects: blip, drop, boing, slam, click).
+- **Soundtrack:** playful future-bass, D minor, with a mallet motif: `python scripts/score.py motion26`.
+- **Sound effects:** its own kit tuned to the song (D minor pentatonic), so pops and bells play little melodies: bouncing thuds, pen-drawn shapes, rising word stamps, an EXENOVA note run, chiptune hops, a toggle click, step bells, a rocket launch and a swell into the logo hit. Regenerate with `python scripts/score.py motion26-sfx` (leaves the song alone); placed in `soundEffects` in `src/motion26/Motion26.tsx`.
 - **Narration:** `src/motion26/narration.json`, voiced with `python scripts/reel26-voice.py motion26`.
 
 ## Rendering
